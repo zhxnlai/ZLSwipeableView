@@ -1,6 +1,6 @@
 ZLSwipeableView
 ===============
-A simple view for building card like interface like Tinder and Potluck.
+A simple view for building card like interface like [Tinder](http://www.gotinder.com/) and [Potluck](https://www.potluck.it/).
 
 Preview
 ---
