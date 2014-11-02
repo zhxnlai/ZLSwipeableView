@@ -1,33 +1,33 @@
 //
-//  ZLSwipeableContainerView.m
+//  ZLSwipeableView.m
 //  ZLSwipeableViewDemo
 //
 //  Created by Zhixuan Lai on 11/1/14.
 //  Copyright (c) 2014 Zhixuan Lai. All rights reserved.
 //
 
-#import "ZLSwipeableContainterView.h"
+#import "ZLSwipeableView.h"
 #import "ZLPanGestureRecognizer.h"
 
 static const int numPrefetchedViews = 3;
 
-@interface ZLSwipeableContainterView () <UICollisionBehaviorDelegate, UIDynamicAnimatorDelegate>
+@interface ZLSwipeableView () <UICollisionBehaviorDelegate, UIDynamicAnimatorDelegate>
 
 // UIDynamicAnimators
 @property (strong, nonatomic) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UISnapBehavior *swipeableViewSnapBehavior;
 @property (strong, nonatomic) UIAttachmentBehavior *swipeableViewAttachmentBehavior;
 @property (strong, nonatomic) UIAttachmentBehavior *anchorViewAttachmentBehavior;
-//AnchorView
+// AnchorView
 @property (strong, nonatomic) UIView *anchorContainerView;
 @property (strong, nonatomic) UIView *anchorView;
 @property (nonatomic) BOOL isAnchorViewVisiable;
-
+// ContainerView
 @property (strong, nonatomic) UIView *reuseCoverContainerView;
 @property (strong, nonatomic) UIView *containerView;
 
 @end
-@implementation ZLSwipeableContainterView
+@implementation ZLSwipeableView
 
 #pragma mark - Init
 - (id)initWithFrame:(CGRect)frame {
@@ -83,7 +83,7 @@ static const int numPrefetchedViews = 3;
     [self animateSwipeableViewsIfNeeded];
 }
 #pragma mark - Properties
-- (void)setDataSource:(id<ZLSwipeableContainerViewDataSource>)dataSource {
+- (void)setDataSource:(id<ZLSwipeableViewDataSource>)dataSource {
     _dataSource = dataSource;
     [self loadNextSwipeableViewsIfNeeded:NO];
 }
@@ -103,10 +103,12 @@ static const int numPrefetchedViews = 3;
     NSMutableSet *newViews = [NSMutableSet set];
     for (NSInteger i=numViews; i<numPrefetchedViews; i++) {
         UIView *nextView = [self nextSwipeableView];
-        [self.containerView addSubview:nextView];
-        [self.containerView sendSubviewToBack:nextView];
-        nextView.center = self.swipeableViewsCenter;
-        [newViews addObject:nextView];
+        if (nextView) {
+            [self.containerView addSubview:nextView];
+            [self.containerView sendSubviewToBack:nextView];
+            nextView.center = self.swipeableViewsCenter;
+            [newViews addObject:nextView];
+        }
     }
     if (animated) {
         NSTimeInterval maxDelay = 0.3;
@@ -296,12 +298,12 @@ static const int numPrefetchedViews = 3;
 }
 - (void)pushAnchorViewForCover:(UIView *)swipeableView inDirection:(CGVector)direction andCollideInRect: (CGRect) collisionRect {
     if (direction.dx>0) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(containerView:didSwipeRight:)]) {
-            [self.delegate containerView:self didSwipeRight:swipeableView];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(swipeableView:didSwipeRight:)]) {
+            [self.delegate swipeableView:self didSwipeRight:swipeableView];
         }
     } else {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(containerView:didSwipeLeft:)]) {
-            [self.delegate containerView:self didSwipeLeft:swipeableView];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(swipeableView:didSwipeLeft:)]) {
+            [self.delegate swipeableView:self didSwipeLeft:swipeableView];
         }
     }
 //    NSLog(@"pushing cover to direction: %f, %f", direction.dx, direction.dy);
@@ -381,8 +383,8 @@ static const int numPrefetchedViews = 3;
 }
 - (UIView *)nextSwipeableView {
     UIView *nextView = nil;
-    if (self.dataSource && [self.dataSource respondsToSelector:@selector(nextSwipeableViewForContainerView:)]) {
-        nextView = [self.dataSource nextSwipeableViewForContainerView:self];
+    if (self.dataSource && [self.dataSource respondsToSelector:@selector(nextViewForSwipeableView:)]) {
+        nextView = [self.dataSource nextViewForSwipeableView:self];
     }
     if (nextView) {
         [nextView addGestureRecognizer:[[ZLPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];

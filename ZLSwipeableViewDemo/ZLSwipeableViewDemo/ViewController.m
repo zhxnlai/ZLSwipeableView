@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "ZLSwipeableContainterView.h"
+#import "ZLSwipeableView.h"
 #import "UIColor+FlatColors.h"
 #import "CardView.h"
 
-@interface ViewController () <ZLSwipeableContainerViewDataSource>
-@property (weak, nonatomic) IBOutlet ZLSwipeableContainterView *containerView;
+@interface ViewController () <ZLSwipeableViewDataSource>
+@property (weak, nonatomic) IBOutlet ZLSwipeableView *swipeableView;
 
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic) NSUInteger colorIndex;
@@ -50,25 +50,25 @@
 //    ZLSwipeableContainterView *container = [[ZLSwipeableContainterView alloc] initWithFrame:self.view.frame];
 //    [self.view addSubview:container];
     
-    [self.containerView setNeedsLayout];
-    [self.containerView layoutIfNeeded];
-    self.containerView.dataSource = self;
+    [self.swipeableView setNeedsLayout];
+    [self.swipeableView layoutIfNeeded];
+    self.swipeableView.dataSource = self;
 }
 - (IBAction)swipeLeftButtonAction:(UIButton *)sender {
-    [self.containerView swipeTopViewToLeft];
+    [self.swipeableView swipeTopViewToLeft];
 }
 - (IBAction)swipeRightButtonAction:(UIButton *)sender {
-    [self.containerView swipeTopViewToRight];
+    [self.swipeableView swipeTopViewToRight];
 }
 - (IBAction)reloadButtonAction:(UIButton *)sender {
     self.colorIndex = 0;
-    [self.containerView discardAllSwipeableViews];
-    [self.containerView loadNextSwipeableViewsIfNeeded];
+    [self.swipeableView discardAllSwipeableViews];
+    [self.swipeableView loadNextSwipeableViewsIfNeeded];
 }
 
-- (UIView *)nextSwipeableViewForContainerView:(ZLSwipeableContainterView *)containerView {
+- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView {
     if (self.colorIndex<self.colors.count) {
-        CardView *view = [[CardView alloc] initWithFrame:containerView.bounds];
+        CardView *view = [[CardView alloc] initWithFrame:swipeableView.bounds];
         view.cardColor = [self colorForName:self.colors[self.colorIndex]];
         self.colorIndex++;
         return view;

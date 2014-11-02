@@ -1,5 +1,5 @@
 //
-//  ZLSwipeableContainerView.h
+//  ZLSwipeableView.h
 //  ZLSwipeableViewDemo
 //
 //  Created by Zhixuan Lai on 11/1/14.
@@ -8,26 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
-@class ZLSwipeableContainterView;
+@class ZLSwipeableView;
 
 // Delegate
 @protocol ZLSwipeableContainerViewDelegate <NSObject>
 @optional
 
-- (void)containerView: (ZLSwipeableContainterView *)containerView didSwipeLeft:(UIView *)view;
-- (void)containerView: (ZLSwipeableContainterView *)containerView didSwipeRight:(UIView *)view;
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view;
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view;
 
 @end
 
 
 // DataSource
-@protocol ZLSwipeableContainerViewDataSource <NSObject>
+@protocol ZLSwipeableViewDataSource <NSObject>
 @required
-- (UIView *)nextSwipeableViewForContainerView:(ZLSwipeableContainterView *)containerView;
+- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView;
 @end
 
-@interface ZLSwipeableContainterView : UIView
-@property (nonatomic, weak) id <ZLSwipeableContainerViewDataSource> dataSource;
+@interface ZLSwipeableView : UIView
+@property (nonatomic, weak) id <ZLSwipeableViewDataSource> dataSource;
 @property (nonatomic, weak) id <ZLSwipeableContainerViewDelegate> delegate;
 
 /**
@@ -72,9 +72,13 @@
  *  Load up to 3 swipeable views.
  */
 -(void)loadNextSwipeableViewsIfNeeded;
-
-
+/**
+ *  Swipe top view to the left programmatically
+ */
 -(void)swipeTopViewToLeft;
+/**
+ *  Swipe top view to the right programmatically
+ */
 -(void)swipeTopViewToRight;
 
 @end
