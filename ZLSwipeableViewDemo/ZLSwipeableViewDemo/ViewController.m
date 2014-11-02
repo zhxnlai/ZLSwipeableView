@@ -11,7 +11,7 @@
 #import "UIColor+FlatColors.h"
 #import "CardView.h"
 
-@interface ViewController () <ZLSwipeableViewDataSource>
+@interface ViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 @property (weak, nonatomic) IBOutlet ZLSwipeableView *swipeableView;
 
 @property (nonatomic, strong) NSArray *colors;
@@ -47,12 +47,17 @@
                     @"Asbestos",
                     ];
 
-//    ZLSwipeableContainterView *container = [[ZLSwipeableContainterView alloc] initWithFrame:self.view.frame];
-//    [self.view addSubview:container];
+    // ZLSwipeableView *swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.view.frame];
+    // [self.view addSubview:swipeableView];
     
     [self.swipeableView setNeedsLayout];
     [self.swipeableView layoutIfNeeded];
+    
+    // required data source
     self.swipeableView.dataSource = self;
+    
+    // optional delegate
+    self.swipeableView.delegate = self;
 }
 - (IBAction)swipeLeftButtonAction:(UIButton *)sender {
     [self.swipeableView swipeTopViewToLeft];
@@ -66,6 +71,18 @@
     [self.swipeableView loadNextSwipeableViewsIfNeeded];
 }
 
+#pragma mark - ZLSwipeableViewDelegate
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
+    NSLog(@"did swipe left");
+}
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
+    NSLog(@"did swipe right");
+}
+- (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location {
+    NSLog(@"swiping at location: x %f, y%f", location.x, location.y);
+}
+
+#pragma mark - ZLSwipeableViewDataSource
 - (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView {
     if (self.colorIndex<self.colors.count) {
         CardView *view = [[CardView alloc] initWithFrame:swipeableView.bounds];
@@ -75,6 +92,8 @@
     }
     return nil;
 }
+
+#pragma mark - ()
 - (UIColor *)colorForName:(NSString *)name
 {
     NSString *sanitizedName = [name stringByReplacingOccurrencesOfString:@" " withString:@""];

@@ -11,12 +11,11 @@
 @class ZLSwipeableView;
 
 // Delegate
-@protocol ZLSwipeableContainerViewDelegate <NSObject>
+@protocol ZLSwipeableViewDelegate <NSObject>
 @optional
-
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view;
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view;
-
+- (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location;
 @end
 
 
@@ -28,7 +27,7 @@
 
 @interface ZLSwipeableView : UIView
 @property (nonatomic, weak) id <ZLSwipeableViewDataSource> dataSource;
-@property (nonatomic, weak) id <ZLSwipeableContainerViewDelegate> delegate;
+@property (nonatomic, weak) id <ZLSwipeableViewDelegate> delegate;
 
 /**
  *  Enable this to rotate the views behind the top view. Default to YES.

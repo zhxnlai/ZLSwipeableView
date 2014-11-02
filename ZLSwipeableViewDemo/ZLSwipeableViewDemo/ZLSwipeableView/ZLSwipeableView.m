@@ -30,7 +30,7 @@ static const int numPrefetchedViews = 3;
 @implementation ZLSwipeableView
 
 #pragma mark - Init
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self setup];
@@ -55,8 +55,6 @@ static const int numPrefetchedViews = 3;
     self.reuseCoverContainerView.userInteractionEnabled = false;
     [self addSubview:self.reuseCoverContainerView];
     
-    NSLog(@"self frame: %f %f %f %f", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-    NSLog(@"self bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     // Default properties
     self.isRotationEnabled = YES;
     self.rotationDegree = 1;
@@ -178,6 +176,9 @@ static const int numPrefetchedViews = 3;
     
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         self.anchorViewAttachmentBehavior.anchorPoint = location;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(swipeableView:swipingView:atLocation:)]) {
+            [self.delegate swipeableView:self swipingView:swipeableView atLocation:location];
+        }
     }
     
     if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled) {
