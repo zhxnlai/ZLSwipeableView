@@ -14,9 +14,10 @@
 		092F0F3F1A05B474007CDDCC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 092F0F3E1A05B474007CDDCC /* Images.xcassets */; };
 		092F0F421A05B474007CDDCC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092F0F401A05B474007CDDCC /* LaunchScreen.xib */; };
 		092F0F4E1A05B474007CDDCC /* ZLSwipeableViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F4D1A05B474007CDDCC /* ZLSwipeableViewDemoTests.m */; };
-		092F0F591A05B4AF007CDDCC /* ZLSwipeableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F581A05B4AF007CDDCC /* ZLSwipeableView.m */; };
-		092F0F5C1A05B4CA007CDDCC /* UIView+ZLSwipeableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F5B1A05B4CA007CDDCC /* UIView+ZLSwipeableView.m */; };
+		092F0F591A05B4AF007CDDCC /* ZLSwipeableContainterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F581A05B4AF007CDDCC /* ZLSwipeableContainterView.m */; };
 		092F0F621A05BFA7007CDDCC /* ZLPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F611A05BFA7007CDDCC /* ZLPanGestureRecognizer.m */; };
+		092F0F661A05C9CA007CDDCC /* UIColor+FlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F651A05C9CA007CDDCC /* UIColor+FlatColors.m */; };
+		092F0F691A05DAF9007CDDCC /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F681A05DAF8007CDDCC /* CardView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,12 +44,14 @@
 		092F0F471A05B474007CDDCC /* ZLSwipeableViewDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZLSwipeableViewDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		092F0F4C1A05B474007CDDCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		092F0F4D1A05B474007CDDCC /* ZLSwipeableViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLSwipeableViewDemoTests.m; sourceTree = "<group>"; };
-		092F0F571A05B4AF007CDDCC /* ZLSwipeableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLSwipeableView.h; sourceTree = "<group>"; };
-		092F0F581A05B4AF007CDDCC /* ZLSwipeableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLSwipeableView.m; sourceTree = "<group>"; };
-		092F0F5A1A05B4CA007CDDCC /* UIView+ZLSwipeableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ZLSwipeableView.h"; sourceTree = "<group>"; };
-		092F0F5B1A05B4CA007CDDCC /* UIView+ZLSwipeableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZLSwipeableView.m"; sourceTree = "<group>"; };
+		092F0F571A05B4AF007CDDCC /* ZLSwipeableContainterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLSwipeableContainterView.h; sourceTree = "<group>"; };
+		092F0F581A05B4AF007CDDCC /* ZLSwipeableContainterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLSwipeableContainterView.m; sourceTree = "<group>"; };
 		092F0F601A05BFA7007CDDCC /* ZLPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPanGestureRecognizer.h; sourceTree = "<group>"; };
 		092F0F611A05BFA7007CDDCC /* ZLPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPanGestureRecognizer.m; sourceTree = "<group>"; };
+		092F0F641A05C9CA007CDDCC /* UIColor+FlatColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+FlatColors.h"; sourceTree = "<group>"; };
+		092F0F651A05C9CA007CDDCC /* UIColor+FlatColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FlatColors.m"; sourceTree = "<group>"; };
+		092F0F671A05DAF8007CDDCC /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
+		092F0F681A05DAF8007CDDCC /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,16 +93,14 @@
 		092F0F301A05B474007CDDCC /* ZLSwipeableViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				092F0F631A05C9CA007CDDCC /* UIColor+FlatColors */,
+				092F0F6A1A05F812007CDDCC /* ZLSwipeableView */,
 				092F0F351A05B474007CDDCC /* AppDelegate.h */,
 				092F0F361A05B474007CDDCC /* AppDelegate.m */,
 				092F0F381A05B474007CDDCC /* ViewController.h */,
 				092F0F391A05B474007CDDCC /* ViewController.m */,
-				092F0F5A1A05B4CA007CDDCC /* UIView+ZLSwipeableView.h */,
-				092F0F5B1A05B4CA007CDDCC /* UIView+ZLSwipeableView.m */,
-				092F0F571A05B4AF007CDDCC /* ZLSwipeableView.h */,
-				092F0F581A05B4AF007CDDCC /* ZLSwipeableView.m */,
-				092F0F601A05BFA7007CDDCC /* ZLPanGestureRecognizer.h */,
-				092F0F611A05BFA7007CDDCC /* ZLPanGestureRecognizer.m */,
+				092F0F671A05DAF8007CDDCC /* CardView.h */,
+				092F0F681A05DAF8007CDDCC /* CardView.m */,
 				092F0F3B1A05B474007CDDCC /* Main.storyboard */,
 				092F0F3E1A05B474007CDDCC /* Images.xcassets */,
 				092F0F401A05B474007CDDCC /* LaunchScreen.xib */,
@@ -132,6 +133,26 @@
 				092F0F4C1A05B474007CDDCC /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		092F0F631A05C9CA007CDDCC /* UIColor+FlatColors */ = {
+			isa = PBXGroup;
+			children = (
+				092F0F641A05C9CA007CDDCC /* UIColor+FlatColors.h */,
+				092F0F651A05C9CA007CDDCC /* UIColor+FlatColors.m */,
+			);
+			path = "UIColor+FlatColors";
+			sourceTree = "<group>";
+		};
+		092F0F6A1A05F812007CDDCC /* ZLSwipeableView */ = {
+			isa = PBXGroup;
+			children = (
+				092F0F571A05B4AF007CDDCC /* ZLSwipeableContainterView.h */,
+				092F0F581A05B4AF007CDDCC /* ZLSwipeableContainterView.m */,
+				092F0F601A05BFA7007CDDCC /* ZLPanGestureRecognizer.h */,
+				092F0F611A05BFA7007CDDCC /* ZLPanGestureRecognizer.m */,
+			);
+			name = ZLSwipeableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,12 +255,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				092F0F5C1A05B4CA007CDDCC /* UIView+ZLSwipeableView.m in Sources */,
 				092F0F3A1A05B474007CDDCC /* ViewController.m in Sources */,
-				092F0F591A05B4AF007CDDCC /* ZLSwipeableView.m in Sources */,
+				092F0F591A05B4AF007CDDCC /* ZLSwipeableContainterView.m in Sources */,
+				092F0F661A05C9CA007CDDCC /* UIColor+FlatColors.m in Sources */,
 				092F0F621A05BFA7007CDDCC /* ZLPanGestureRecognizer.m in Sources */,
 				092F0F371A05B474007CDDCC /* AppDelegate.m in Sources */,
 				092F0F341A05B474007CDDCC /* main.m in Sources */,
+				092F0F691A05DAF9007CDDCC /* CardView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +384,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ZLSwipeableViewDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -372,6 +395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ZLSwipeableViewDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -430,6 +454,7 @@
 				092F0F531A05B474007CDDCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		092F0F541A05B474007CDDCC /* Build configuration list for PBXNativeTarget "ZLSwipeableViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +463,7 @@
 				092F0F561A05B474007CDDCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

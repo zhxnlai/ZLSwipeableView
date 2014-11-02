@@ -1,5 +1,5 @@
 //
-//  UIView+ZLSwipeableView.h
+//  CardView.h
 //  ZLSwipeableViewDemo
 //
 //  Created by Zhixuan Lai on 11/1/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIView (ZLSwipeableView)
-
+@interface CardView : UIView
+@property UIColor *cardColor;
 @end
