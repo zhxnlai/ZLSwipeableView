@@ -19,7 +19,7 @@ You can install `ZLSwipeableView` through CocoaPods adding the following to your
 
 Usage
 ---
-Check out the demo app for an example.
+Check out the [demo app](https://github.com/zhxnlai/ZLSwipeableView/archive/master.zip) for an example.
 
 `ZLSwipeableView` can be added to storyboard or initialized programmatically:
 ~~~objective-c
