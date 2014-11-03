@@ -30,7 +30,7 @@ static const int numPrefetchedViews = 3;
 @implementation ZLSwipeableView
 
 #pragma mark - Init
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self setup];
@@ -55,8 +55,6 @@ static const int numPrefetchedViews = 3;
     self.reuseCoverContainerView.userInteractionEnabled = false;
     [self addSubview:self.reuseCoverContainerView];
     
-    NSLog(@"self frame: %f %f %f %f", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-    NSLog(@"self bounds: %f %f %f %f", self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height);
     // Default properties
     self.isRotationEnabled = YES;
     self.rotationDegree = 1;
@@ -178,6 +176,9 @@ static const int numPrefetchedViews = 3;
     
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         self.anchorViewAttachmentBehavior.anchorPoint = location;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(swipeableView:swipingView:atLocation:)]) {
+            [self.delegate swipeableView:self swipingView:swipeableView atLocation:location];
+        }
     }
     
     if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled) {
@@ -186,7 +187,9 @@ static const int numPrefetchedViews = 3;
         CGPoint normalizedVelocity = CGPointMake(velocity.x/velocityMagnitude, velocity.y/velocityMagnitude);
         if ((ABS(translation.x) > self.relativeDisplacementThreshold*self.bounds.size.width //displacement
              || velocityMagnitude > self.escapeVelocityThreshold)   //velocity
-            && ABS(normalizedVelocity.y)<0.8f) {    //direction
+            && (signum(translation.x)==signum(normalizedVelocity.x)) //sign X
+            && (signum(translation.y)==signum(normalizedVelocity.y)) //sign Y
+            && ABS(normalizedVelocity.y)<0.8f) {    // confine veritcal direction
             CGFloat scale = velocityMagnitude > self.escapeVelocityThreshold ? self.pushVelocityMagnitude:self.pushVelocityMagnitude*0.66;
             CGFloat translationMagnitude = sqrtf(translation.x*translation.x+translation.y*translation.y);
             CGVector direction = CGVectorMake(translation.x/translationMagnitude*scale, translation.y/translationMagnitude*scale);
@@ -374,6 +377,8 @@ static const int numPrefetchedViews = 3;
     return radians * 180 / M_PI;
 };
 
+int signum(float n) { return (n < 0) ? -1 : (n > 0) ? +1 : 0; }
+
 - (CGRect)defaultCollisionRect {
     CGSize viewSize = [UIScreen mainScreen].applicationFrame.size;
     CGFloat collisionSizeScale = 6;
@@ -405,5 +410,6 @@ static const int numPrefetchedViews = 3;
 - (UIView *)topSwipeableView {
     return self.containerView.subviews.lastObject;
 }
+
 
 @end
