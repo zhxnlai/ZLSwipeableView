@@ -10,6 +10,8 @@ Preview
 ![cancel](Previews/swipeCancel.gif)
 ###Swipe Programmatically
 ![swipeLeft](Previews/swipeLeft.gif)
+###Swipe Programmatically II
+![swipeLeftRight](Previews/swipeLeftRight.gif)
 
 CocoaPods
 ---
