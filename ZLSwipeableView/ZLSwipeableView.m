@@ -60,7 +60,7 @@ static const int numPrefetchedViews = 3;
     self.rotationDegree = 1;
     self.rotationRelativeYOffsetFromCenter = 0.3;
     
-    self.pushVelocityMagnitude = 1500;
+    self.pushVelocityMagnitude = 1000;
     self.escapeVelocityThreshold = 750;
     self.relativeDisplacementThreshold = 0.25;
     
@@ -190,7 +190,7 @@ static const int numPrefetchedViews = 3;
             && (signum(translation.x)==signum(normalizedVelocity.x)) //sign X
             && (signum(translation.y)==signum(normalizedVelocity.y)) //sign Y
             && ABS(normalizedVelocity.y)<0.8f) {    // confine veritcal direction
-            CGFloat scale = velocityMagnitude > self.escapeVelocityThreshold ? self.pushVelocityMagnitude:self.pushVelocityMagnitude*0.66;
+            CGFloat scale = velocityMagnitude > self.escapeVelocityThreshold ? velocityMagnitude:self.pushVelocityMagnitude;
             CGFloat translationMagnitude = sqrtf(translation.x*translation.x+translation.y*translation.y);
             CGVector direction = CGVectorMake(translation.x/translationMagnitude*scale, translation.y/translationMagnitude*scale);
             
@@ -367,13 +367,11 @@ static const int numPrefetchedViews = 3;
 }
 #pragma mark - ()
 
-- (CGFloat) degreesToRadians: (CGFloat) degrees
-{
+- (CGFloat) degreesToRadians: (CGFloat) degrees {
     return degrees * M_PI / 180;
 };
 
-- (CGFloat) radiansToDegrees: (CGFloat) radians
-{
+- (CGFloat) radiansToDegrees: (CGFloat) radians {
     return radians * 180 / M_PI;
 };
 
