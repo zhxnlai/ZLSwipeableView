@@ -51,8 +51,14 @@ self.swipeableView.delegate = self;
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
     NSLog(@"did swipe right");
 }
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location {
+    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
+}
 - (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location {
     NSLog(@"swiping at location: x %f, y%f", location.x, location.y);
+}
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location {
+    NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
 }
 ~~~
 
@@ -72,6 +78,10 @@ Requirements
 ---
 - iOS 7 or higher.
 - Automatic Reference Counting (ARC).
+
+Contributions
+---
+- Thanks [iamphill](https://github.com/iamphill) for adding new delegates
 
 License
 ---

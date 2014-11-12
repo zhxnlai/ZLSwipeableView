@@ -20,7 +20,6 @@
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location;
 @end
 
-
 // DataSource
 @protocol ZLSwipeableViewDataSource <NSObject>
 @required
