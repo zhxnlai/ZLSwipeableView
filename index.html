@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="ZLSwipeableView : A simple view for building card like interface like Tinder and Potluck.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>ZLSwipeableView</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/zhxnlai/ZLSwipeableView">View on GitHub</a>
+
+          <h1 id="project_title">ZLSwipeableView</h1>
+          <h2 id="project_tagline">A simple view for building card like interface like Tinder and Potluck.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/zhxnlai/ZLSwipeableView/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/zhxnlai/ZLSwipeableView/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="zlswipeableview" class="anchor" href="#zlswipeableview" aria-hidden="true"><span class="octicon octicon-link"></span></a>ZLSwipeableView</h1>
+
+<p>A simple view for building card like interface like <a href="http://www.gotinder.com/">Tinder</a> and <a href="https://www.potluck.it/">Potluck</a>.</p>
+
+<h2>
+<a id="preview" class="anchor" href="#preview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preview</h2>
+
+<h3>
+<a id="swipe" class="anchor" href="#swipe" aria-hidden="true"><span class="octicon octicon-link"></span></a>Swipe</h3>
+
+<p><img src="https://github.com/zhxnlai/ZLSwipeableView/raw/master/Previews/swipe.gif" alt="swipe"></p>
+
+<h3>
+<a id="swipe-cancel" class="anchor" href="#swipe-cancel" aria-hidden="true"><span class="octicon octicon-link"></span></a>Swipe Cancel</h3>
+
+<p><img src="https://github.com/zhxnlai/ZLSwipeableView/raw/master/Previews/swipeCancel.gif" alt="cancel"></p>
+
+<h3>
+<a id="swipe-programmatically" class="anchor" href="#swipe-programmatically" aria-hidden="true"><span class="octicon octicon-link"></span></a>Swipe Programmatically</h3>
+
+<p><img src="https://github.com/zhxnlai/ZLSwipeableView/raw/master/Previews/swipeLeft.gif" alt="swipeLeft"></p>
+
+<h3>
+<a id="swipe-programmatically-ii" class="anchor" href="#swipe-programmatically-ii" aria-hidden="true"><span class="octicon octicon-link"></span></a>Swipe Programmatically II</h3>
+
+<p><img src="https://github.com/zhxnlai/ZLSwipeableView/raw/master/Previews/swipeLeftRight.gif" alt="swipeLeftRight"></p>
+
+<h2>
+<a id="cocoapods" class="anchor" href="#cocoapods" aria-hidden="true"><span class="octicon octicon-link"></span></a>CocoaPods</h2>
+
+<p>You can install <code>ZLSwipeableView</code> through CocoaPods adding the following to your Podfile:</p>
+
+<pre><code>pod 'ZLSwipeableView'
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Check out the <a href="https://github.com/zhxnlai/ZLSwipeableView/archive/master.zip">demo app</a> for an example.</p>
+
+<p><code>ZLSwipeableView</code> can be added to storyboard or initialized programmatically:</p>
+
+<div class="highlight highlight-objective-c"><pre>ZLSwipeableView *swipeableView = [[ZLSwipeableView <span class="pl-sf">alloc</span>] <span class="pl-sf">initWithFrame:</span><span class="pl-v">self</span>.view.frame];
+[<span class="pl-v">self</span>.view <span class="pl-sf">addSubview:</span>swipeableView];</pre></div>
+
+<p>A <code>ZLSwipeableView</code> <strong>must</strong> have an object that implements <code>ZLSwipeableViewDelegate</code> to act as a data source. <code>ZLSwipeableView</code> will prefetch <strong>three</strong> views in advance to animate them.</p>
+
+<div class="highlight highlight-objective-c"><pre><span class="pl-c"><span class="pl-pdc">//</span> required data source</span>
+self.swipeableView.dataSource = self;
+
+#<span class="pl-k">pragma mark</span> - ZLSwipeableViewDataSource
+- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView {
+  <span class="pl-k">return</span> [[UIView <span class="pl-sf">alloc</span>] <span class="pl-sf">init</span>];
+}</pre></div>
+
+<p>A <code>ZLSwipeableView</code> can have an optional delegate to receive callback.</p>
+
+<div class="highlight highlight-objective-c"><pre><span class="pl-c"><span class="pl-pdc">//</span> optional delegate</span>
+self.swipeableView.delegate = self;
+
+#<span class="pl-k">pragma mark</span> - ZLSwipeableViewDelegate
+- (<span class="pl-s">void</span>)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
+    <span class="pl-sf">NSLog</span>(<span class="pl-s1"><span class="pl-pds">@"</span>did swipe left<span class="pl-pds">"</span></span>);
+}
+- (<span class="pl-s">void</span>)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
+    <span class="pl-sf">NSLog</span>(<span class="pl-s1"><span class="pl-pds">@"</span>did swipe right<span class="pl-pds">"</span></span>);
+}
+- (<span class="pl-s">void</span>)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(<span class="pl-st">CGPoint</span>)location {
+    <span class="pl-sf">NSLog</span>(<span class="pl-s1"><span class="pl-pds">@"</span>did start swiping at location: x <span class="pl-c1">%f</span>, y<span class="pl-c1">%f</span><span class="pl-pds">"</span></span>, location.<span class="pl-v">x</span>, location.<span class="pl-v">y</span>);
+}
+- (<span class="pl-s">void</span>)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(<span class="pl-st">CGPoint</span>)location {
+    <span class="pl-sf">NSLog</span>(<span class="pl-s1"><span class="pl-pds">@"</span>swiping at location: x <span class="pl-c1">%f</span>, y<span class="pl-c1">%f</span><span class="pl-pds">"</span></span>, location.<span class="pl-v">x</span>, location.<span class="pl-v">y</span>);
+}
+- (<span class="pl-s">void</span>)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(<span class="pl-st">CGPoint</span>)location {
+    <span class="pl-sf">NSLog</span>(<span class="pl-s1"><span class="pl-pds">@"</span>did start swiping at location: x <span class="pl-c1">%f</span>, y<span class="pl-c1">%f</span><span class="pl-pds">"</span></span>, location.<span class="pl-v">x</span>, location.<span class="pl-v">y</span>);
+}</pre></div>
+
+<p>To swipe the top view programmatically:</p>
+
+<div class="highlight highlight-objective-c"><pre>[<span class="pl-v">self</span>.swipeableView <span class="pl-sf">swipeTopViewToLeft</span>];
+[<span class="pl-v">self</span>.swipeableView <span class="pl-sf">swipeTopViewToRight</span>];</pre></div>
+
+<p>To discard all views and reload programmatically:</p>
+
+<div class="highlight highlight-objective-c"><pre>[<span class="pl-v">self</span>.swipeableView <span class="pl-sf">discardAllSwipeableViews</span>];
+[<span class="pl-v">self</span>.swipeableView <span class="pl-sf">loadNextSwipeableViewsIfNeeded</span>];</pre></div>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>iOS 7 or higher.</li>
+<li>Automatic Reference Counting (ARC).</li>
+</ul>
+
+<h2>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h2>
+
+<ul>
+<li>Thanks <a href="https://github.com/iamphill">iamphill</a> for adding new delegates</li>
+</ul>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>ZLSwipeableView is available under MIT license. See the LICENSE file for more info.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">ZLSwipeableView maintained by <a href="https://github.com/zhxnlai">zhxnlai</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
