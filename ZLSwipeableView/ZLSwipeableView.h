@@ -16,7 +16,7 @@
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view;
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view;
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location;
-- (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location;
+- (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location translation:(CGPoint)translation;
 - (void)swipeableView: (ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location;
 @end
 

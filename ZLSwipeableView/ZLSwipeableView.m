@@ -179,8 +179,8 @@ static const int numPrefetchedViews = 3;
 
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         self.anchorViewAttachmentBehavior.anchorPoint = location;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(swipeableView:swipingView:atLocation:)]) {
-            [self.delegate swipeableView:self swipingView:swipeableView atLocation:location];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(swipeableView:swipingView:atLocation:translation:)]) {
+            [self.delegate swipeableView:self swipingView:swipeableView atLocation:location translation:translation];
         }
     }
 
