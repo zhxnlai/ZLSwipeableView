@@ -29,7 +29,7 @@ ZLSwipeableView *swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.vie
 [self.view addSubview:swipeableView];
 ~~~
 
-A `ZLSwipeableView` **must** have an object that implements `ZLSwipeableViewDelegate` to act as a data source. `ZLSwipeableView` will prefetch **three** views in advance to animate them.
+A `ZLSwipeableView` **must** have an object that implements `ZLSwipeableViewDataSource` to act as a data source. `ZLSwipeableView` will prefetch **three** views in advance to animate them.
 ~~~objective-c
 // required data source
 self.swipeableView.dataSource = self;
