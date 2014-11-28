@@ -16,7 +16,6 @@
 		092F0F4E1A05B474007CDDCC /* ZLSwipeableViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F4D1A05B474007CDDCC /* ZLSwipeableViewDemoTests.m */; };
 		092F0F661A05C9CA007CDDCC /* UIColor+FlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F651A05C9CA007CDDCC /* UIColor+FlatColors.m */; };
 		092F0F691A05DAF9007CDDCC /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F681A05DAF8007CDDCC /* CardView.m */; };
-		0971D4601A08425E00325B8D /* ZLPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0971D45D1A08425E00325B8D /* ZLPanGestureRecognizer.m */; };
 		0971D4611A08425E00325B8D /* ZLSwipeableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0971D45F1A08425E00325B8D /* ZLSwipeableView.m */; };
 /* End PBXBuildFile section */
 
@@ -48,8 +47,6 @@
 		092F0F651A05C9CA007CDDCC /* UIColor+FlatColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FlatColors.m"; sourceTree = "<group>"; };
 		092F0F671A05DAF8007CDDCC /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
 		092F0F681A05DAF8007CDDCC /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
-		0971D45C1A08425E00325B8D /* ZLPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPanGestureRecognizer.h; sourceTree = "<group>"; };
-		0971D45D1A08425E00325B8D /* ZLPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPanGestureRecognizer.m; sourceTree = "<group>"; };
 		0971D45E1A08425E00325B8D /* ZLSwipeableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLSwipeableView.h; sourceTree = "<group>"; };
 		0971D45F1A08425E00325B8D /* ZLSwipeableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLSwipeableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,8 +144,6 @@
 		0971D45B1A08425E00325B8D /* ZLSwipeableView */ = {
 			isa = PBXGroup;
 			children = (
-				0971D45C1A08425E00325B8D /* ZLPanGestureRecognizer.h */,
-				0971D45D1A08425E00325B8D /* ZLPanGestureRecognizer.m */,
 				0971D45E1A08425E00325B8D /* ZLSwipeableView.h */,
 				0971D45F1A08425E00325B8D /* ZLSwipeableView.m */,
 			);
@@ -261,7 +256,6 @@
 				092F0F371A05B474007CDDCC /* AppDelegate.m in Sources */,
 				092F0F341A05B474007CDDCC /* main.m in Sources */,
 				092F0F691A05DAF9007CDDCC /* CardView.m in Sources */,
-				0971D4601A08425E00325B8D /* ZLPanGestureRecognizer.m in Sources */,
 				0971D4611A08425E00325B8D /* ZLSwipeableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
