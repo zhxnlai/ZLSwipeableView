@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CardView : UIView
-@property UIColor *cardColor;
+
 @end
