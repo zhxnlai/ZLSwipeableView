@@ -12,14 +12,11 @@
 #import "CardView.h"
 
 @interface ViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
-
-@property (nonatomic, weak) IBOutlet ZLSwipeableView *swipeableView;
+@property (weak, nonatomic) IBOutlet ZLSwipeableView *swipeableView;
 
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic) NSUInteger colorIndex;
-
 @end
-
 
 @implementation ViewController
 
@@ -27,7 +24,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.colorIndex = 0;
-    self.colors = @[@"Turquoise",
+    self.colors = @[
+                    @"Turquoise",
                     @"Green Sea",
                     @"Emerald",
                     @"Nephritis",
@@ -46,71 +44,62 @@
                     @"Clouds",
                     @"Silver",
                     @"Concrete",
-                    @"Asbestos"];
+                    @"Asbestos",
+                    ];
+
+    // ZLSwipeableView *swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.view.frame];
+    // [self.view addSubview:swipeableView];
     
     [self.swipeableView setNeedsLayout];
     [self.swipeableView layoutIfNeeded];
     
-    // Required Data Source
+    // required data source
     self.swipeableView.dataSource = self;
     
-    // Optional Delegate
+    // optional delegate
     self.swipeableView.delegate = self;
 }
-
 - (IBAction)swipeLeftButtonAction:(UIButton *)sender {
     [self.swipeableView swipeTopViewToLeft];
 }
-
 - (IBAction)swipeRightButtonAction:(UIButton *)sender {
     [self.swipeableView swipeTopViewToRight];
 }
-
 - (IBAction)reloadButtonAction:(UIButton *)sender {
     self.colorIndex = 0;
     [self.swipeableView discardAllSwipeableViews];
     [self.swipeableView loadNextSwipeableViewsIfNeeded];
 }
 
-
 #pragma mark - ZLSwipeableViewDelegate
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
-	NSLog(@"did swipe left");
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
+    NSLog(@"did swipe left");
 }
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
-	NSLog(@"did swipe right");
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
+    NSLog(@"did swipe right");
 }
-
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location {
-	NSLog(@"did start swiping at location: x %f, y %f", location.x, location.y);
+    NSLog(@"did start swiping at location: x %f, y %f", location.x, location.y);
 }
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location  translation:(CGPoint)translation {
-	NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f", location.x, location.y, translation.x, translation.y);
+- (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location  translation:(CGPoint)translation {
+    NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f", location.x, location.y, translation.x, translation.y);
 }
-
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location {
-	NSLog(@"did end swiping at location: x %f, y %f", location.x, location.y);
+    NSLog(@"did end swiping at location: x %f, y %f", location.x, location.y);
 }
-
 
 #pragma mark - ZLSwipeableViewDataSource
-
 - (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView {
-    if (self.colorIndex < self.colors.count) {
+    if (self.colorIndex<self.colors.count) {
         CardView *view = [[CardView alloc] initWithFrame:swipeableView.bounds];
-        view.backgroundColor = [self colorForName:self.colors[self.colorIndex]];
+        view.cardColor = [self colorForName:self.colors[self.colorIndex]];
         self.colorIndex++;
         return view;
     }
     return nil;
 }
 
-
 #pragma mark - ()
-
 - (UIColor *)colorForName:(NSString *)name
 {
     NSString *sanitizedName = [name stringByReplacingOccurrencesOfString:@" " withString:@""];

@@ -29,7 +29,7 @@ ZLSwipeableView *swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.vie
 [self.view addSubview:swipeableView];
 ~~~
 
-A `ZLSwipeableView` **must** have an object that implements `ZLSwipeableViewDataSource` to act as a data source. `ZLSwipeableView` will prefetch **three** views in advance to animate them.
+A `ZLSwipeableView` **must** have an object that implements `ZLSwipeableViewDelegate` to act as a data source. `ZLSwipeableView` will prefetch **three** views in advance to animate them.
 ~~~objective-c
 // required data source
 self.swipeableView.dataSource = self;
@@ -45,16 +45,16 @@ A `ZLSwipeableView` can have an optional delegate to receive callback.
 self.swipeableView.delegate = self;
 
 #pragma mark - ZLSwipeableViewDelegate
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
     NSLog(@"did swipe left");
 }
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
+- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
     NSLog(@"did swipe right");
 }
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location {
     NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
 }
-- (void)swipeableView:(ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location {
+- (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location {
     NSLog(@"swiping at location: x %f, y%f", location.x, location.y);
 }
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location {
