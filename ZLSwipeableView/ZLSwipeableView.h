@@ -38,10 +38,10 @@
 @interface ZLSwipeableView : UIView
 
 ///
-@property (nonatomic, weak) id <ZLSwipeableViewDataSource> dataSource;
+@property (nonatomic, weak) IBOutlet id <ZLSwipeableViewDataSource> dataSource;
 
 ///
-@property (nonatomic, weak) id <ZLSwipeableViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id <ZLSwipeableViewDelegate> delegate;
 
 /// Enable this to rotate the views behind the top view. Default to `YES`.
 @property (nonatomic) BOOL isRotationEnabled;
