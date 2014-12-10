@@ -1,6 +1,6 @@
 ZLSwipeableView
 ===============
-A simple view for building card like interface like [Tinder](http://www.gotinder.com/) and [Potluck](https://www.potluck.it/).
+A simple view for building card like interface like [Tinder](http://www.gotinder.com/) and [Potluck](https://www.potluck.it/). ZLSwipeableView was originally developed for [Murmur](http://zhxnlai.github.io/#/murmur).
 
 Preview
 ---
@@ -79,9 +79,11 @@ Requirements
 - iOS 7 or higher.
 - Automatic Reference Counting (ARC).
 
-Contributions
+Credits
 ---
-- Thanks [iamphill](https://github.com/iamphill) for adding new delegates
+- Thanks [iamphill](https://github.com/iamphill) for adding new delegates.
+- Thanks [mdznr](https://github.com/mdznr) for making the code style consistent.
+- Thanks [coryalder](https://github.com/coryalder) for making dataSource and delegate IBOutlets.
 
 License
 ---

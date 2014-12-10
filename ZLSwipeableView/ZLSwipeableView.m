@@ -7,8 +7,9 @@
 //
 
 #import "ZLSwipeableView.h"
+#import "ZLPanGestureRecognizer.h"
 
-static const int numPrefetchedViews = 3;
+const NSUInteger kNumPrefetchedViews = 3;
 
 @interface ZLSwipeableView () <UICollisionBehaviorDelegate, UIDynamicAnimatorDelegate>
 
@@ -111,7 +112,7 @@ static const int numPrefetchedViews = 3;
 - (void)loadNextSwipeableViewsIfNeeded:(BOOL)animated {
     NSInteger numViews = self.containerView.subviews.count;
     NSMutableSet *newViews = [NSMutableSet set];
-    for (NSInteger i=numViews; i<numPrefetchedViews; i++) {
+    for (NSInteger i=numViews; i<kNumPrefetchedViews; i++) {
         UIView *nextView = [self nextSwipeableView];
         if (nextView) {
             [self.containerView addSubview:nextView];
@@ -123,7 +124,7 @@ static const int numPrefetchedViews = 3;
 	
     if (animated) {
         NSTimeInterval maxDelay = 0.3;
-        NSTimeInterval delayStep = maxDelay/numPrefetchedViews;
+        NSTimeInterval delayStep = maxDelay/kNumPrefetchedViews;
         NSTimeInterval aggregatedDelay = maxDelay;
         NSTimeInterval animationDuration = 0.25;
         for (UIView *view in newViews) {
@@ -388,6 +389,11 @@ static const int numPrefetchedViews = 3;
     }
 
     for (UIView *view in viewsToRemove) {
+        for (UIGestureRecognizer *aGestureRecognizer in view.gestureRecognizers) {
+            if ([aGestureRecognizer isKindOfClass:[ZLPanGestureRecognizer class]]) {
+                [view removeGestureRecognizer:aGestureRecognizer];
+            }
+        }
         [view removeFromSuperview];
     }
 }
@@ -421,7 +427,7 @@ int signum(float n) {
         nextView = [self.dataSource nextViewForSwipeableView:self];
     }
     if (nextView) {
-        [nextView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
+        [nextView addGestureRecognizer:[[ZLPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)]];
     }
     return nextView;
 }
