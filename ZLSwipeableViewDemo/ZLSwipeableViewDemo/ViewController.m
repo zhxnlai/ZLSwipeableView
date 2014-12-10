@@ -11,7 +11,8 @@
 #import "UIColor+FlatColors.h"
 #import "CardView.h"
 
-@interface ViewController () <ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
+@interface ViewController () <ZLSwipeableViewDataSource,
+                              ZLSwipeableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet ZLSwipeableView *swipeableView;
 
@@ -20,42 +21,46 @@
 
 @end
 
-
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.colorIndex = 0;
-    self.colors = @[@"Turquoise",
-                    @"Green Sea",
-                    @"Emerald",
-                    @"Nephritis",
-                    @"Peter River",
-                    @"Belize Hole",
-                    @"Amethyst",
-                    @"Wisteria",
-                    @"Wet Asphalt",
-                    @"Midnight Blue",
-                    @"Sun Flower",
-                    @"Orange",
-                    @"Carrot",
-                    @"Pumpkin",
-                    @"Alizarin",
-                    @"Pomegranate",
-                    @"Clouds",
-                    @"Silver",
-                    @"Concrete",
-                    @"Asbestos"];
-    
-    NSLog(@"bounds: %f %f %f %f", self.swipeableView.bounds.origin.x, self.swipeableView.bounds.origin.y, self.swipeableView.bounds.size.width, self.swipeableView.bounds.size.height);
+    self.colors = @[
+        @"Turquoise",
+        @"Green Sea",
+        @"Emerald",
+        @"Nephritis",
+        @"Peter River",
+        @"Belize Hole",
+        @"Amethyst",
+        @"Wisteria",
+        @"Wet Asphalt",
+        @"Midnight Blue",
+        @"Sun Flower",
+        @"Orange",
+        @"Carrot",
+        @"Pumpkin",
+        @"Alizarin",
+        @"Pomegranate",
+        @"Clouds",
+        @"Silver",
+        @"Concrete",
+        @"Asbestos"
+    ];
+
+    NSLog(@"bounds: %f %f %f %f", self.swipeableView.bounds.origin.x,
+          self.swipeableView.bounds.origin.y,
+          self.swipeableView.bounds.size.width,
+          self.swipeableView.bounds.size.height);
 
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
-    
+
     // Required Data Source
     self.swipeableView.dataSource = self;
-    
+
     // Optional Delegate
     self.swipeableView.delegate = self;
 }
@@ -81,29 +86,37 @@
     [self.swipeableView loadNextSwipeableViewsIfNeeded];
 }
 
-
 #pragma mark - ZLSwipeableViewDelegate
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
-	NSLog(@"did swipe left");
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+         didSwipeLeft:(UIView *)view {
+    NSLog(@"did swipe left");
 }
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
-	NSLog(@"did swipe right");
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+        didSwipeRight:(UIView *)view {
+    NSLog(@"did swipe right");
 }
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location {
-	NSLog(@"did start swiping at location: x %f, y %f", location.x, location.y);
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+    didStartSwipingView:(UIView *)view
+             atLocation:(CGPoint)location {
+    NSLog(@"did start swiping at location: x %f, y %f", location.x, location.y);
 }
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location  translation:(CGPoint)translation {
-	NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f", location.x, location.y, translation.x, translation.y);
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+          swipingView:(UIView *)view
+           atLocation:(CGPoint)location
+          translation:(CGPoint)translation {
+    NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f",
+          location.x, location.y, translation.x, translation.y);
 }
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location {
-	NSLog(@"did end swiping at location: x %f, y %f", location.x, location.y);
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+    didEndSwipingView:(UIView *)view
+           atLocation:(CGPoint)location {
+    NSLog(@"did end swiping at location: x %f, y %f", location.x, location.y);
 }
-
 
 #pragma mark - ZLSwipeableViewDataSource
 
@@ -117,13 +130,13 @@
     return nil;
 }
 
-
 #pragma mark - ()
 
-- (UIColor *)colorForName:(NSString *)name
-{
-    NSString *sanitizedName = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSString *selectorString = [NSString stringWithFormat:@"flat%@Color", sanitizedName];
+- (UIColor *)colorForName:(NSString *)name {
+    NSString *sanitizedName =
+        [name stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *selectorString =
+        [NSString stringWithFormat:@"flat%@Color", sanitizedName];
     Class colorClass = [UIColor class];
     return [colorClass performSelector:NSSelectorFromString(selectorString)];
 }

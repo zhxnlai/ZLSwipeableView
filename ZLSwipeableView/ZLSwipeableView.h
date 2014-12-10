@@ -13,18 +13,26 @@
 /// Delegate
 @protocol ZLSwipeableViewDelegate <NSObject>
 
-- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view;
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+         didSwipeLeft:(UIView *)view;
 
-- (void)swipeableView: (ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view;
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+        didSwipeRight:(UIView *)view;
 
-- (void)swipeableView: (ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location;
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+    didStartSwipingView:(UIView *)view
+             atLocation:(CGPoint)location;
 
-- (void)swipeableView: (ZLSwipeableView *)swipeableView swipingView:(UIView *)view atLocation:(CGPoint)location translation:(CGPoint)translation;
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+          swipingView:(UIView *)view
+           atLocation:(CGPoint)location
+          translation:(CGPoint)translation;
 
-- (void)swipeableView: (ZLSwipeableView *)swipeableView didEndSwipingView:(UIView *)view atLocation:(CGPoint)location;
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+    didEndSwipingView:(UIView *)view
+           atLocation:(CGPoint)location;
 
 @end
-
 
 // DataSource
 @protocol ZLSwipeableViewDataSource <NSObject>
@@ -34,14 +42,13 @@
 
 @end
 
-
 @interface ZLSwipeableView : UIView
 
 ///
-@property (nonatomic, weak) IBOutlet id <ZLSwipeableViewDataSource> dataSource;
+@property (nonatomic, weak) IBOutlet id<ZLSwipeableViewDataSource> dataSource;
 
 ///
-@property (nonatomic, weak) IBOutlet id <ZLSwipeableViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<ZLSwipeableViewDelegate> delegate;
 
 /// Enable this to rotate the views behind the top view. Default to `YES`.
 @property (nonatomic) BOOL isRotationEnabled;
@@ -49,7 +56,8 @@
 /// Magnitude of the rotation in degrees
 @property (nonatomic) float rotationDegree;
 
-/// Relative vertical offset of the center of rotation. From 0 to 1. Default to 0.3.
+/// Relative vertical offset of the center of rotation. From 0 to 1. Default to
+/// 0.3.
 @property (nonatomic) float rotationRelativeYOffsetFromCenter;
 
 /// Magnitude in points per second.
@@ -71,15 +79,15 @@
 @property (nonatomic) CGFloat manualSwipeRotationRelativeYOffsetFromCenter;
 
 /// Discard all swipeable views on the screen.
--(void)discardAllSwipeableViews;
+- (void)discardAllSwipeableViews;
 
 /// Load up to 3 swipeable views.
--(void)loadNextSwipeableViewsIfNeeded;
+- (void)loadNextSwipeableViewsIfNeeded;
 
 /// Swipe top view to the left programmatically
--(void)swipeTopViewToLeft;
+- (void)swipeTopViewToLeft;
 
 /// Swipe top view to the right programmatically
--(void)swipeTopViewToRight;
+- (void)swipeTopViewToRight;
 
 @end
