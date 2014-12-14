@@ -50,24 +50,13 @@
         @"Asbestos"
     ];
 
-    NSLog(@"bounds: %f %f %f %f", self.swipeableView.bounds.origin.x,
-          self.swipeableView.bounds.origin.y,
-          self.swipeableView.bounds.size.width,
-          self.swipeableView.bounds.size.height);
-
-    [self.view setNeedsLayout];
-    [self.view layoutIfNeeded];
-
-    // Required Data Source
-    self.swipeableView.dataSource = self;
-
     // Optional Delegate
     self.swipeableView.delegate = self;
 }
 
 - (void)viewDidLayoutSubviews {
-    [self.swipeableView setNeedsLayout];
-    [self.swipeableView layoutIfNeeded];
+    // Required Data Source
+    self.swipeableView.dataSource = self;
 }
 
 #pragma mark - Action
