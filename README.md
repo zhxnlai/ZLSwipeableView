@@ -1,5 +1,7 @@
 ZLSwipeableView
 ===============
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zhxnlai/ZLSwipeableView?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A simple view for building card like interface like [Tinder](http://www.gotinder.com/) and [Potluck](https://www.potluck.it/). ZLSwipeableView was originally developed for [Murmur](http://zhxnlai.github.io/#/murmur).
 
 Preview
