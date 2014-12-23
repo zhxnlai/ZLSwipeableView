@@ -20,6 +20,9 @@
         didSwipeRight:(UIView *)view;
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
+        didCancelSwipe:(UIView *)view;
+
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
     didStartSwipingView:(UIView *)view
              atLocation:(CGPoint)location;
 

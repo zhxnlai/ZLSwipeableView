@@ -269,6 +269,12 @@ const NSUInteger kNumPrefetchedViews = 3;
                 [self snapBehaviorThatSnapView:swipeableView
                                        toPoint:self.swipeableViewsCenter];
             [self.animator addBehavior:self.swipeableViewSnapBehavior];
+
+            if (self.delegate &&
+                [self.delegate respondsToSelector:@selector(swipeableView:
+                                                           didCancelSwipe:)]) {
+                [self.delegate swipeableView:self didCancelSwipe:swipeableView];
+            }
         }
 
         if (self.delegate &&
