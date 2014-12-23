@@ -53,6 +53,9 @@ self.swipeableView.delegate = self;
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeRight:(UIView *)view {
     NSLog(@"did swipe right");
 }
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didCancelSwipe:(UIView *)view {
+  NSLog(@"did cancel swipe");
+}
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didStartSwipingView:(UIView *)view atLocation:(CGPoint)location {
     NSLog(@"did start swiping at location: x %f, y%f", location.x, location.y);
 }
