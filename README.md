@@ -2,6 +2,7 @@ ZLSwipeableView
 ===============
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zhxnlai/ZLSwipeableView?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A simple view for building card like interface like [Tinder](http://www.gotinder.com/) and [Potluck](https://www.potluck.it/). ZLSwipeableView was originally developed for [Murmur](http://zhxnlai.github.io/#/murmur).
 
 Preview
@@ -25,7 +26,7 @@ Usage
 ---
 Check out the [demo app](https://github.com/zhxnlai/ZLSwipeableView/archive/master.zip) for an example.
 
-`ZLSwipeableView` can be added to storyboard or initialized programmatically:
+`ZLSwipeableView` can be added to storyboard or instantiated programmatically:
 ~~~objective-c
 ZLSwipeableView *swipeableView = [[ZLSwipeableView alloc] initWithFrame:self.view.frame];
 [self.view addSubview:swipeableView];
@@ -41,6 +42,8 @@ self.swipeableView.dataSource = self;
   return [[UIView alloc] init];
 }
 ~~~
+The demo app includes examples of both creating views programmatically and loading views from Xib files that [use Auto Layout](https://github.com/zhxnlai/ZLSwipeableView/issues/9).
+
 A `ZLSwipeableView` can have an optional delegate to receive callback.
 ~~~objective-c
 // optional delegate
