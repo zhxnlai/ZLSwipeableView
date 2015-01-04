@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0901414B1A37FF7900435455 /* ZLPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0901414A1A37FF7900435455 /* ZLPanGestureRecognizer.m */; };
+		0923646B1A59D90F009BC8B4 /* CardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0923646A1A59D90F009BC8B4 /* CardContentView.xib */; };
 		092F0F341A05B474007CDDCC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F331A05B474007CDDCC /* main.m */; };
 		092F0F371A05B474007CDDCC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F361A05B474007CDDCC /* AppDelegate.m */; };
 		092F0F3A1A05B474007CDDCC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F391A05B474007CDDCC /* ViewController.m */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		090141491A37FF7900435455 /* ZLPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPanGestureRecognizer.h; sourceTree = "<group>"; };
 		0901414A1A37FF7900435455 /* ZLPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPanGestureRecognizer.m; sourceTree = "<group>"; };
+		0923646A1A59D90F009BC8B4 /* CardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardContentView.xib; sourceTree = "<group>"; };
 		092F0F2E1A05B474007CDDCC /* ZLSwipeableViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZLSwipeableViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		092F0F321A05B474007CDDCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		092F0F331A05B474007CDDCC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				092F0F391A05B474007CDDCC /* ViewController.m */,
 				092F0F671A05DAF8007CDDCC /* CardView.h */,
 				092F0F681A05DAF8007CDDCC /* CardView.m */,
+				0923646A1A59D90F009BC8B4 /* CardContentView.xib */,
 				092F0F3B1A05B474007CDDCC /* Main.storyboard */,
 				092F0F3E1A05B474007CDDCC /* Images.xcassets */,
 				092F0F401A05B474007CDDCC /* LaunchScreen.xib */,
@@ -238,6 +241,7 @@
 			files = (
 				092F0F3D1A05B474007CDDCC /* Main.storyboard in Resources */,
 				092F0F421A05B474007CDDCC /* LaunchScreen.xib in Resources */,
+				0923646B1A59D90F009BC8B4 /* CardContentView.xib in Resources */,
 				092F0F3F1A05B474007CDDCC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

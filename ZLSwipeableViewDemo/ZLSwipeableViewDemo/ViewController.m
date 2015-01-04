@@ -12,13 +12,14 @@
 #import "CardView.h"
 
 @interface ViewController () <ZLSwipeableViewDataSource,
-                              ZLSwipeableViewDelegate>
+                              ZLSwipeableViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, weak) IBOutlet ZLSwipeableView *swipeableView;
 
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic) NSUInteger colorIndex;
 
+@property (nonatomic) BOOL loadCardFromXib;
 @end
 
 @implementation ViewController
@@ -70,6 +71,20 @@
 }
 
 - (IBAction)reloadButtonAction:(UIButton *)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                 initWithTitle:@"Load Cards"
+                      delegate:self
+             cancelButtonTitle:@"Cancel"
+        destructiveButtonTitle:nil
+             otherButtonTitles:@"Programmatically", @"From Xib", nil];
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet
+    clickedButtonAtIndex:(NSInteger)buttonIndex {
+    self.loadCardFromXib = buttonIndex == 1;
+
     self.colorIndex = 0;
     [self.swipeableView discardAllSwipeableViews];
     [self.swipeableView loadNextSwipeableViewsIfNeeded];
@@ -119,6 +134,42 @@
         CardView *view = [[CardView alloc] initWithFrame:swipeableView.bounds];
         view.backgroundColor = [self colorForName:self.colors[self.colorIndex]];
         self.colorIndex++;
+
+        if (self.loadCardFromXib) {
+            UIView *contentView =
+                [[[NSBundle mainBundle] loadNibNamed:@"CardContentView"
+                                               owner:self
+                                             options:nil] objectAtIndex:0];
+            contentView.translatesAutoresizingMaskIntoConstraints = NO;
+            [view addSubview:contentView];
+            
+            // This is important: https://github.com/zhxnlai/ZLSwipeableView/issues/9
+            NSDictionary *metrics = @{
+                @"height" : @(view.bounds.size.height),
+                @"width" : @(view.bounds.size.width)
+            };
+            NSDictionary *views = NSDictionaryOfVariableBindings(contentView);
+            [view addConstraints:[NSLayoutConstraint
+                                     constraintsWithVisualFormat:
+                                         @"H:|[contentView(width)]|"
+                                                         options:0
+                                                         metrics:metrics
+                                                           views:views]];
+            [view addConstraints:[NSLayoutConstraint
+                                     constraintsWithVisualFormat:
+                                         @"V:|[contentView(height)]|"
+                                                         options:0
+                                                         metrics:metrics
+                                                           views:views]];
+        } else {
+            UITextView *textView =
+                [[UITextView alloc] initWithFrame:view.bounds];
+            textView.text = @"This UITextView was created programmatically.";
+            textView.backgroundColor = [UIColor clearColor];
+            textView.font = [UIFont systemFontOfSize:24];
+            [view addSubview:textView];
+        }
+
         return view;
     }
     return nil;
