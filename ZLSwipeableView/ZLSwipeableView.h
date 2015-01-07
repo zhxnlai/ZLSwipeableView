@@ -20,7 +20,7 @@
         didSwipeRight:(UIView *)view;
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
-        didCancelSwipe:(UIView *)view;
+       didCancelSwipe:(UIView *)view;
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
     didStartSwipingView:(UIView *)view
@@ -63,10 +63,13 @@
 /// 0.3.
 @property (nonatomic) float rotationRelativeYOffsetFromCenter;
 
+/// Enable this to allow swiping left or right. Default to `YES`.
+@property (nonatomic) BOOL isSwipingEnabled;
+
 /// Magnitude in points per second.
 @property (nonatomic) CGFloat escapeVelocityThreshold;
 
-///
+/// The relative distance from center that will
 @property (nonatomic) CGFloat relativeDisplacementThreshold;
 
 /// Magnitude of velocity at which the swiped view will be animated.
@@ -78,8 +81,9 @@
 /// Swiped views will be destroyed when they collide with this rect.
 @property (nonatomic) CGRect collisionRect;
 
-/// Mangintude of rotation for swiping views manually
-@property (nonatomic) CGFloat manualSwipeRotationRelativeYOffsetFromCenter;
+/// Relative vertical offset of the center of rotation for swiping views
+/// programatically.
+@property (nonatomic) CGFloat programaticSwipeRotationRelativeYOffsetFromCenter;
 
 /// Discard all swipeable views on the screen.
 - (void)discardAllSwipeableViews;

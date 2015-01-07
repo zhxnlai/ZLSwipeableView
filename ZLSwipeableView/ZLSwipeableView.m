@@ -72,7 +72,7 @@ const NSUInteger kNumPrefetchedViews = 3;
     self.escapeVelocityThreshold = 750;
     self.relativeDisplacementThreshold = 0.25;
 
-    self.manualSwipeRotationRelativeYOffsetFromCenter = -0.2;
+    self.programaticSwipeRotationRelativeYOffsetFromCenter = -0.2;
     self.swipeableViewsCenter =
         CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     self.collisionRect = [self defaultCollisionRect];
@@ -240,7 +240,8 @@ const NSUInteger kNumPrefetchedViews = 3;
             sqrt(pow(velocity.x, 2) + pow(velocity.y, 2));
         CGPoint normalizedVelocity = CGPointMake(
             velocity.x / velocityMagnitude, velocity.y / velocityMagnitude);
-        if ((ABS(translation.x) > self.relativeDisplacementThreshold *
+        if (self.isSwipingEnabled &&
+            (ABS(translation.x) > self.relativeDisplacementThreshold *
                                       self.bounds.size.width // displacement
              ||
              velocityMagnitude > self.escapeVelocityThreshold) // velocity
@@ -305,7 +306,7 @@ const NSUInteger kNumPrefetchedViews = 3;
     CGPoint location = CGPointMake(
         topSwipeableView.center.x,
         topSwipeableView.center.y *
-            (1 + self.manualSwipeRotationRelativeYOffsetFromCenter));
+            (1 + self.programaticSwipeRotationRelativeYOffsetFromCenter));
     [self createAnchorViewForCover:topSwipeableView
                            atLocation:location
         shouldAttachAnchorViewToPoint:YES];
