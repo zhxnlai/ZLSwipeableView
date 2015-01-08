@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 /// 0.3.
 @property (nonatomic) float rotationRelativeYOffsetFromCenter;
 
-/// Enable this to allow swiping left or right. Default to
+/// Enable this to allow swiping left and right. Default to
 /// `ZLSwipeableViewDirectionBoth`.
 @property (nonatomic) ZLSwipeableViewDirection direction;
 

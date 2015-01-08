@@ -168,6 +168,8 @@
             textView.text = @"This UITextView was created programmatically.";
             textView.backgroundColor = [UIColor clearColor];
             textView.font = [UIFont systemFontOfSize:24];
+            textView.editable = NO;
+            textView.selectable = NO;
             [view addSubview:textView];
         }
 
