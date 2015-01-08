@@ -142,8 +142,9 @@
                                              options:nil] objectAtIndex:0];
             contentView.translatesAutoresizingMaskIntoConstraints = NO;
             [view addSubview:contentView];
-            
-            // This is important: https://github.com/zhxnlai/ZLSwipeableView/issues/9
+
+            // This is important:
+            // https://github.com/zhxnlai/ZLSwipeableView/issues/9
             NSDictionary *metrics = @{
                 @"height" : @(view.bounds.size.height),
                 @"width" : @(view.bounds.size.width)

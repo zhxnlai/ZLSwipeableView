@@ -68,6 +68,7 @@ const NSUInteger kNumPrefetchedViews = 3;
     self.rotationDegree = 1;
     self.rotationRelativeYOffsetFromCenter = 0.3;
 
+    self.direction = ZLSwipeableViewDirectionBoth;
     self.pushVelocityMagnitude = 1000;
     self.escapeVelocityThreshold = 750;
     self.relativeDisplacementThreshold = 0.25;
@@ -240,7 +241,10 @@ const NSUInteger kNumPrefetchedViews = 3;
             sqrt(pow(velocity.x, 2) + pow(velocity.y, 2));
         CGPoint normalizedVelocity = CGPointMake(
             velocity.x / velocityMagnitude, velocity.y / velocityMagnitude);
-        if (self.isSwipingEnabled &&
+        if (((signum(translation.x) == -1 &&
+              self.direction & ZLSwipeableViewDirectionLeft) ||
+             (signum(translation.x) == 1 &&
+              self.direction & ZLSwipeableViewDirectionRight)) &&
             (ABS(translation.x) > self.relativeDisplacementThreshold *
                                       self.bounds.size.width // displacement
              ||

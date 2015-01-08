@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
+    ZLSwipeableViewDirectionNone = 0,
+    ZLSwipeableViewDirectionLeft,
+    ZLSwipeableViewDirectionRight,
+    ZLSwipeableViewDirectionBoth = ZLSwipeableViewDirectionLeft |
+                                   ZLSwipeableViewDirectionRight,
+};
+
 @class ZLSwipeableView;
 
 /// Delegate
@@ -63,8 +71,9 @@
 /// 0.3.
 @property (nonatomic) float rotationRelativeYOffsetFromCenter;
 
-/// Enable this to allow swiping left or right. Default to `YES`.
-@property (nonatomic) BOOL isSwipingEnabled;
+/// Enable this to allow swiping left or right. Default to
+/// `ZLSwipeableViewDirectionBoth`.
+@property (nonatomic) ZLSwipeableViewDirection direction;
 
 /// Magnitude in points per second.
 @property (nonatomic) CGFloat escapeVelocityThreshold;
