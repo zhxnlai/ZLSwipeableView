@@ -69,6 +69,14 @@
 - (IBAction)swipeRightButtonAction:(UIButton *)sender {
     [self.swipeableView swipeTopViewToRight];
 }
+- (IBAction)swipeUpButtonAction:(UIButton *)sender
+{
+	[self.swipeableView swipeTopViewToUp];
+}
+- (IBAction)swipeDownButtonAction:(UIButton *)sender
+{
+	[self.swipeableView swipeTopViewToDown];
+}
 
 - (IBAction)reloadButtonAction:(UIButton *)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
@@ -91,6 +99,18 @@
 }
 
 #pragma mark - ZLSwipeableViewDelegate
+
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+		   didSwipeUp:(UIView *)view
+{
+	NSLog(@"did swipe up");
+}
+
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+		 didSwipeDown:(UIView *)view
+{
+	NSLog(@"did swipe down");
+}
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
          didSwipeLeft:(UIView *)view {
