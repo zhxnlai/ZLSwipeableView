@@ -76,6 +76,7 @@ const NSUInteger kNumPrefetchedViews = 3;
     self.programaticSwipeRotationRelativeYOffsetFromCenter = -0.2;
     self.swipeableViewsCenter =
         CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+	self.swipeableViewsCenterInitial = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     self.collisionRect = [self defaultCollisionRect];
 }
 
@@ -122,7 +123,7 @@ const NSUInteger kNumPrefetchedViews = 3;
         if (nextView) {
             [self.containerView addSubview:nextView];
             [self.containerView sendSubviewToBack:nextView];
-            nextView.center = self.swipeableViewsCenter;
+            nextView.center = self.swipeableViewsCenterInitial;
             [newViews addObject:nextView];
         }
     }

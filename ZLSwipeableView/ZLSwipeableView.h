@@ -99,6 +99,9 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 /// Center of swipable Views. This property is animated.
 @property (nonatomic) CGPoint swipeableViewsCenter;
 
+/// Center of swipable Views. This property is animated.
+@property (nonatomic) CGPoint swipeableViewsCenterInitial;
+
 /// Swiped views will be destroyed when they collide with this rect.
 @property (nonatomic) CGRect collisionRect;
 

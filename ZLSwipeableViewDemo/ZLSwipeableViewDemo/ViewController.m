@@ -53,6 +53,8 @@
 
     // Optional Delegate
     self.swipeableView.delegate = self;
+	
+	self.swipeableView.swipeableViewsCenterInitial = CGPointMake(-200, -200);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -94,6 +96,7 @@
     self.loadCardFromXib = buttonIndex == 1;
 
     self.colorIndex = 0;
+
     [self.swipeableView discardAllSwipeableViews];
     [self.swipeableView loadNextSwipeableViewsIfNeeded];
 }
@@ -149,7 +152,8 @@
 
 #pragma mark - ZLSwipeableViewDataSource
 
-- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView {
+- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView
+{
     if (self.colorIndex < self.colors.count) {
         CardView *view = [[CardView alloc] initWithFrame:swipeableView.bounds];
         view.backgroundColor = [self colorForName:self.colors[self.colorIndex]];
