@@ -152,13 +152,13 @@
             NSDictionary *views = NSDictionaryOfVariableBindings(contentView);
             [view addConstraints:[NSLayoutConstraint
                                      constraintsWithVisualFormat:
-                                         @"H:|[contentView(width)]|"
+                                         @"H:|[contentView(width)]"
                                                          options:0
                                                          metrics:metrics
                                                            views:views]];
             [view addConstraints:[NSLayoutConstraint
                                      constraintsWithVisualFormat:
-                                         @"V:|[contentView(height)]|"
+                                         @"V:|[contentView(height)]"
                                                          options:0
                                                          metrics:metrics
                                                            views:views]];
