@@ -53,6 +53,8 @@
 
     // Optional Delegate
     self.swipeableView.delegate = self;
+	
+	self.swipeableView.swipeableViewsCenterInitial = CGPointMake(-200, -200);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -68,6 +70,14 @@
 
 - (IBAction)swipeRightButtonAction:(UIButton *)sender {
     [self.swipeableView swipeTopViewToRight];
+}
+- (IBAction)swipeUpButtonAction:(UIButton *)sender
+{
+	[self.swipeableView swipeTopViewToUp];
+}
+- (IBAction)swipeDownButtonAction:(UIButton *)sender
+{
+	[self.swipeableView swipeTopViewToDown];
 }
 
 - (IBAction)reloadButtonAction:(UIButton *)sender {
@@ -86,11 +96,24 @@
     self.loadCardFromXib = buttonIndex == 1;
 
     self.colorIndex = 0;
+
     [self.swipeableView discardAllSwipeableViews];
     [self.swipeableView loadNextSwipeableViewsIfNeeded];
 }
 
 #pragma mark - ZLSwipeableViewDelegate
+
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+		   didSwipeUp:(UIView *)view
+{
+	NSLog(@"did swipe up");
+}
+
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+		 didSwipeDown:(UIView *)view
+{
+	NSLog(@"did swipe down");
+}
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
          didSwipeLeft:(UIView *)view {
@@ -129,7 +152,8 @@
 
 #pragma mark - ZLSwipeableViewDataSource
 
-- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView {
+- (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView
+{
     if (self.colorIndex < self.colors.count) {
         CardView *view = [[CardView alloc] initWithFrame:swipeableView.bounds];
         view.backgroundColor = [self colorForName:self.colors[self.colorIndex]];

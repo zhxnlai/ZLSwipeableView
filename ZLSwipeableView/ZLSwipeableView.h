@@ -12,14 +12,26 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
     ZLSwipeableViewDirectionNone = 0,
     ZLSwipeableViewDirectionLeft,
     ZLSwipeableViewDirectionRight,
-    ZLSwipeableViewDirectionBoth = ZLSwipeableViewDirectionLeft |
-                                   ZLSwipeableViewDirectionRight,
+	ZLSwipeableViewDirectionHorizontal = ZLSwipeableViewDirectionLeft |
+	ZLSwipeableViewDirectionRight,
+	ZLSwipeableViewDirectionUp,
+	ZLSwipeableViewDirectionDown,
+	ZLSwipeableViewDirectionVertical = ZLSwipeableViewDirectionUp |
+	ZLSwipeableViewDirectionDown,
+	ZLSwipeableViewDirectionAll = ZLSwipeableViewDirectionLeft |
+	ZLSwipeableViewDirectionRight | ZLSwipeableViewDirectionUp | ZLSwipeableViewDirectionDown,
 };
 
 @class ZLSwipeableView;
 
 /// Delegate
 @protocol ZLSwipeableViewDelegate <NSObject>
+
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+		   didSwipeUp:(UIView *)view;
+
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+		 didSwipeDown:(UIView *)view;
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
          didSwipeLeft:(UIView *)view;
@@ -87,6 +99,9 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 /// Center of swipable Views. This property is animated.
 @property (nonatomic) CGPoint swipeableViewsCenter;
 
+/// Center of swipable Views. This property is animated.
+@property (nonatomic) CGPoint swipeableViewsCenterInitial;
+
 /// Swiped views will be destroyed when they collide with this rect.
 @property (nonatomic) CGRect collisionRect;
 
@@ -106,4 +121,9 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 /// Swipe top view to the right programmatically
 - (void)swipeTopViewToRight;
 
+/// Swipe top view to the up programmatically
+- (void)swipeTopViewToUp;
+
+/// Swipe top view to the down programmatically
+- (void)swipeTopViewToDown;
 @end
