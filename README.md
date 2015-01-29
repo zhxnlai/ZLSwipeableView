@@ -50,6 +50,14 @@ A `ZLSwipeableView` can have an optional delegate to receive callback.
 self.swipeableView.delegate = self;
 
 #pragma mark - ZLSwipeableViewDelegate
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+           didSwipeUp:(UIView *)view {
+    NSLog(@"did swipe up");
+}
+- (void)swipeableView:(ZLSwipeableView *)swipeableView
+         didSwipeDown:(UIView *)view {
+    NSLog(@"did swipe down");
+}
 - (void)swipeableView:(ZLSwipeableView *)swipeableView didSwipeLeft:(UIView *)view {
     NSLog(@"did swipe left");
 }
@@ -74,6 +82,7 @@ To swipe the top view programmatically:
 ~~~objective-c
 [self.swipeableView swipeTopViewToLeft];
 [self.swipeableView swipeTopViewToRight];
+...
 ~~~
 
 To discard all views and reload programmatically:
