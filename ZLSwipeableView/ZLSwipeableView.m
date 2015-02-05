@@ -24,7 +24,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 // AnchorView
 @property (strong, nonatomic) UIView *anchorContainerView;
 @property (strong, nonatomic) UIView *anchorView;
-@property (nonatomic) BOOL isAnchorViewVisiable;
+@property (nonatomic) BOOL isAnchorViewVisible;
 // ContainerView
 @property (strong, nonatomic) UIView *reuseCoverContainerView;
 @property (strong, nonatomic) UIView *containerView;
@@ -56,7 +56,7 @@ const NSUInteger kNumPrefetchedViews = 3;
     self.anchorContainerView =
         [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     [self addSubview:self.anchorContainerView];
-    self.isAnchorViewVisiable = NO;
+    self.isAnchorViewVisible = NO;
     self.containerView = [[UIView alloc] initWithFrame:self.bounds];
     [self addSubview:self.containerView];
     self.reuseCoverContainerView = [[UIView alloc] initWithFrame:self.bounds];
@@ -439,7 +439,7 @@ const NSUInteger kNumPrefetchedViews = 3;
         [[UIView alloc] initWithFrame:CGRectMake(location.x - 500,
                                                  location.y - 500, 1000, 1000)];
     [self.anchorView setBackgroundColor:[UIColor blueColor]];
-    [self.anchorView setHidden:!self.isAnchorViewVisiable];
+    [self.anchorView setHidden:!self.isAnchorViewVisible];
     [self.anchorContainerView addSubview:self.anchorView];
     UIAttachmentBehavior *attachToView =
         [self attachmentBehaviorThatAnchorsView:swipeableView
