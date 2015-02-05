@@ -16,7 +16,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 
 // UIDynamicAnimators
 @property (strong, nonatomic) UIDynamicAnimator *animator;
-@property (nonatomic, strong) UISnapBehavior *swipeableViewSnapBehavior;
+@property (strong, nonatomic) UISnapBehavior *swipeableViewSnapBehavior;
 @property (strong, nonatomic)
     UIAttachmentBehavior *swipeableViewAttachmentBehavior;
 @property (strong, nonatomic)
@@ -217,8 +217,7 @@ const NSUInteger kNumPrefetchedViews = 3;
         [self createAnchorViewForCover:swipeableView
                                atLocation:location
             shouldAttachAnchorViewToPoint:YES];
-        if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(swipeableView:
+        if ([self.delegate respondsToSelector:@selector(swipeableView:
                                                   didStartSwipingView:
                                                            atLocation:)]) {
             [self.delegate swipeableView:self
@@ -229,8 +228,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         self.anchorViewAttachmentBehavior.anchorPoint = location;
-        if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(swipeableView:
+        if ([self.delegate respondsToSelector:@selector(swipeableView:
                                                           swipingView:
                                                            atLocation:
                                                           translation:)]) {
@@ -288,15 +286,13 @@ const NSUInteger kNumPrefetchedViews = 3;
                                        toPoint:self.swipeableViewsCenter];
             [self.animator addBehavior:self.swipeableViewSnapBehavior];
 
-            if (self.delegate &&
-                [self.delegate respondsToSelector:@selector(swipeableView:
+            if ([self.delegate respondsToSelector:@selector(swipeableView:
                                                            didCancelSwipe:)]) {
                 [self.delegate swipeableView:self didCancelSwipe:swipeableView];
             }
         }
 
-        if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(swipeableView:
+        if ([self.delegate respondsToSelector:@selector(swipeableView:
                                                     didEndSwipingView:
                                                            atLocation:)]) {
             [self.delegate swipeableView:self
@@ -578,9 +574,7 @@ int signum(float n) { return (n < 0) ? -1 : (n > 0) ? +1 : 0; }
 
 - (UIView *)nextSwipeableView {
     UIView *nextView = nil;
-    if (self.dataSource &&
-        [self.dataSource
-            respondsToSelector:@selector(nextViewForSwipeableView:)]) {
+    if ([self.dataSource respondsToSelector:@selector(nextViewForSwipeableView:)]) {
         nextView = [self.dataSource nextViewForSwipeableView:self];
     }
     if (nextView) {
@@ -598,18 +592,17 @@ int signum(float n) { return (n < 0) ? -1 : (n > 0) ? +1 : 0; }
               animated:(BOOL)animated {
     float duration = animated ? 0.4 : 0;
     float rotationRadian = [self degreesToRadians:degree];
-    [UIView animateWithDuration:duration
-                     animations:^{
-                         view.center = self.swipeableViewsCenter;
-                         CGAffineTransform transform =
-                             CGAffineTransformMakeTranslation(offset.x,
-                                                              offset.y);
-                         transform =
-                             CGAffineTransformRotate(transform, rotationRadian);
-                         transform = CGAffineTransformTranslate(
-                             transform, -offset.x, -offset.y);
-                         view.transform = transform;
-                     }];
+    [UIView animateWithDuration:duration animations:^{
+        view.center = self.swipeableViewsCenter;
+        CGAffineTransform transform =
+            CGAffineTransformMakeTranslation(offset.x,
+                offset.y);
+        transform =
+            CGAffineTransformRotate(transform, rotationRadian);
+        transform = CGAffineTransformTranslate(
+            transform, -offset.x, -offset.y);
+        view.transform = transform;
+    }];
 }
 
 - (UIView *)topSwipeableView {
