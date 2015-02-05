@@ -461,33 +461,28 @@ const NSUInteger kNumPrefetchedViews = 3;
 }
 
 - (void)pushAnchorViewForCover:(UIView *)swipeableView
-                   inDirection:(CGVector)direction
+                   inDirection:(CGVector)directionVector
               andCollideInRect:(CGRect)collisionRect {
-    if (ABS(direction.dx) > ABS(direction.dy)) {
-        if (direction.dx > 0) {
-            if (self.delegate &&
-                [self.delegate
-                    respondsToSelector:@selector(swipeableView:didSwipeRight:)])
-                [self.delegate swipeableView:self didSwipeRight:swipeableView];
+    ZLSwipeableViewDirection direction = ZLSwipeableViewDirectionNone;
+
+    if (ABS(directionVector.dx) > ABS(directionVector.dy)) {
+        if (directionVector.dx > 0) {
+            direction = ZLSwipeableViewDirectionRight;
         } else {
-            if (self.delegate &&
-                [self.delegate
-                    respondsToSelector:@selector(swipeableView:didSwipeLeft:)])
-                [self.delegate swipeableView:self didSwipeLeft:swipeableView];
+            direction = ZLSwipeableViewDirectionLeft;
         }
     } else {
-        if (direction.dy > 0) {
-            if (self.delegate &&
-                [self.delegate
-                    respondsToSelector:@selector(swipeableView:didSwipeDown:)])
-                [self.delegate swipeableView:self didSwipeDown:swipeableView];
+        if (directionVector.dy > 0) {
+            direction = ZLSwipeableViewDirectionDown;
         } else {
-            if (self.delegate &&
-                [self.delegate
-                    respondsToSelector:@selector(swipeableView:didSwipeUp:)])
-                [self.delegate swipeableView:self didSwipeUp:swipeableView];
+            direction = ZLSwipeableViewDirectionUp;
         }
     }
+
+    if ([self.delegate respondsToSelector:@selector(swipeableView:didSwipeView:inDirection:)]) {
+        [self.delegate swipeableView:self didSwipeView:swipeableView inDirection:direction];
+    }
+
     [self.animator removeBehavior:self.anchorViewAttachmentBehavior];
 
     UICollisionBehavior *collisionBehavior =
@@ -497,7 +492,7 @@ const NSUInteger kNumPrefetchedViews = 3;
     [self.animator addBehavior:collisionBehavior];
 
     UIPushBehavior *pushBehavior =
-        [self pushBehaviorThatPushView:self.anchorView toDirection:direction];
+        [self pushBehaviorThatPushView:self.anchorView toDirection:directionVector];
     [self.animator addBehavior:pushBehavior];
 
     [self.reuseCoverContainerView addSubview:self.anchorView];
