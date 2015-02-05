@@ -1,3 +1,4 @@
 language: objective-c
-xcode_project: ZLSwipeableViewDemo/ZLSwipeableViewDemo.xcodeproj # path to your xcodeproj folder
-xcode_scheme: ZLSwipeableViewDemo
+
+script:
+  xctool -project ZLSwipeableViewDemo/ZLSwipeableViewDemo.xcodeproj -scheme ZLSwipeableViewDemo -sdk iphonesimulator build test
