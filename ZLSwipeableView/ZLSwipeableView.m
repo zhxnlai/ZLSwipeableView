@@ -9,7 +9,7 @@
 #import "ZLSwipeableView.h"
 #import "ZLPanGestureRecognizer.h"
 
-const NSUInteger kNumPrefetchedViews = 3;
+const NSUInteger ZLPrefetchedViewsNumber = 3;
 
 ZLSwipeableViewDirection ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
     ZLSwipeableViewDirection direction = ZLSwipeableViewDirectionNone;
@@ -30,8 +30,7 @@ ZLSwipeableViewDirection ZLDirectionVectorToSwipeableViewDirection(CGVector dire
     return direction;
 }
 
-@interface ZLSwipeableView () <UICollisionBehaviorDelegate,
-    UIDynamicAnimatorDelegate>
+@interface ZLSwipeableView () <UICollisionBehaviorDelegate, UIDynamicAnimatorDelegate>
 
 // UIDynamicAnimators
 @property (strong, nonatomic) UIDynamicAnimator *animator;
@@ -142,7 +141,7 @@ ZLSwipeableViewDirection ZLDirectionVectorToSwipeableViewDirection(CGVector dire
 - (void)loadNextSwipeableViewsIfNeeded:(BOOL)animated {
     NSInteger numViews = self.containerView.subviews.count;
     NSMutableSet *newViews = [NSMutableSet set];
-    for (NSInteger i = numViews; i < kNumPrefetchedViews; i++) {
+    for (NSInteger i = numViews; i < ZLPrefetchedViewsNumber; i++) {
         UIView *nextView = [self nextSwipeableView];
         if (nextView) {
             [self.containerView addSubview:nextView];
@@ -154,7 +153,7 @@ ZLSwipeableViewDirection ZLDirectionVectorToSwipeableViewDirection(CGVector dire
 
     if (animated) {
         NSTimeInterval maxDelay = 0.3;
-        NSTimeInterval delayStep = maxDelay / kNumPrefetchedViews;
+        NSTimeInterval delayStep = maxDelay / ZLPrefetchedViewsNumber;
         NSTimeInterval aggregatedDelay = maxDelay;
         NSTimeInterval animationDuration = 0.25;
         for (UIView *view in newViews) {
