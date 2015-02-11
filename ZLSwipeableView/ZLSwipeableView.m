@@ -247,26 +247,22 @@ ZLSwipeableViewDirection ZLDirectionVectorToSwipeableViewDirection(CGVector dire
 
     if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled) {
         CGPoint velocity = [recognizer velocityInView:self];
-        CGFloat velocityMagnitude = sqrt(pow(velocity.x, 2) + pow(velocity.y, 2));
+        CGFloat velocityMagnitude = sqrtf(powf(velocity.x, 2) + powf(velocity.y, 2));
         CGPoint normalizedVelocity = CGPointMake(velocity.x / velocityMagnitude, velocity.y / velocityMagnitude);
-        if (((signum(translation.x) == -1 && self.direction & ZLSwipeableViewDirectionLeft) ||
-            (signum(translation.x) == 1 && self.direction & ZLSwipeableViewDirectionRight) ||
-            (signum(translation.y) == -1 && self.direction & ZLSwipeableViewDirectionDown) ||
-            (signum(translation.y) == 1 && self.direction & ZLSwipeableViewDirectionUp)) &&
+        CGFloat scale = velocityMagnitude > self.escapeVelocityThreshold ? velocityMagnitude : self.pushVelocityMagnitude;
+        CGFloat translationMagnitude = sqrtf(translation.x * translation.x + translation.y * translation.y);
+        CGVector directionVector = CGVectorMake(
+            translation.x / translationMagnitude * scale,
+            translation.y / translationMagnitude * scale
+        );
 
+        if ((ZLDirectionVectorToSwipeableViewDirection(directionVector) & self.direction) > 0 &&
             (ABS(translation.x) > self.relativeDisplacementThreshold * self.bounds.size.width || // displacement
                 velocityMagnitude > self.escapeVelocityThreshold) && // velocity
             (signum(translation.x) == signum(normalizedVelocity.x)) && // sign X
             (signum(translation.y) == signum(normalizedVelocity.y)) // sign Y
         ) {
-            CGFloat scale = velocityMagnitude > self.escapeVelocityThreshold ? velocityMagnitude : self.pushVelocityMagnitude;
-            CGFloat translationMagnitude = sqrtf(translation.x * translation.x + translation.y * translation.y);
-            CGVector direction = CGVectorMake(
-                translation.x / translationMagnitude * scale,
-                translation.y / translationMagnitude * scale
-            );
-
-            [self pushAnchorViewForCover:swipeableView inDirection:direction andCollideInRect:self.collisionRect];
+            [self pushAnchorViewForCover:swipeableView inDirection:directionVector andCollideInRect:self.collisionRect];
         } else {
             [self.animator removeBehavior:self.swipeableViewAttachmentBehavior];
             [self.animator removeBehavior:self.anchorViewAttachmentBehavior];
