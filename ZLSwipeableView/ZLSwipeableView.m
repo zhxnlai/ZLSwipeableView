@@ -9,18 +9,34 @@
 #import "ZLSwipeableView.h"
 #import "ZLPanGestureRecognizer.h"
 
-const NSUInteger kNumPrefetchedViews = 3;
+const NSUInteger ZLPrefetchedViewsNumber = 3;
 
-@interface ZLSwipeableView () <UICollisionBehaviorDelegate,
-                               UIDynamicAnimatorDelegate>
+ZLSwipeableViewDirection ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
+    ZLSwipeableViewDirection direction = ZLSwipeableViewDirectionNone;
+    if (ABS(directionVector.dx) > ABS(directionVector.dy)) {
+        if (directionVector.dx > 0) {
+            direction = ZLSwipeableViewDirectionRight;
+        } else {
+            direction = ZLSwipeableViewDirectionLeft;
+        }
+    } else {
+        if (directionVector.dy > 0) {
+            direction = ZLSwipeableViewDirectionDown;
+        } else {
+            direction = ZLSwipeableViewDirectionUp;
+        }
+    }
+
+    return direction;
+}
+
+@interface ZLSwipeableView () <UICollisionBehaviorDelegate, UIDynamicAnimatorDelegate>
 
 // UIDynamicAnimators
 @property (strong, nonatomic) UIDynamicAnimator *animator;
 @property (strong, nonatomic) UISnapBehavior *swipeableViewSnapBehavior;
-@property (strong, nonatomic)
-    UIAttachmentBehavior *swipeableViewAttachmentBehavior;
-@property (strong, nonatomic)
-    UIAttachmentBehavior *anchorViewAttachmentBehavior;
+@property (strong, nonatomic) UIAttachmentBehavior *swipeableViewAttachmentBehavior;
+@property (strong, nonatomic) UIAttachmentBehavior *anchorViewAttachmentBehavior;
 // AnchorView
 @property (strong, nonatomic) UIView *anchorContainerView;
 @property (strong, nonatomic) UIView *anchorView;
@@ -30,6 +46,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 @property (strong, nonatomic) UIView *containerView;
 
 @end
+
 @implementation ZLSwipeableView
 
 #pragma mark - Init
@@ -103,7 +120,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 
 #pragma mark - Properties
 
-- (void)setDataSource:(id<ZLSwipeableViewDataSource>)dataSource {
+- (void)setDataSource:(id <ZLSwipeableViewDataSource>)dataSource {
     _dataSource = dataSource;
     [self loadNextSwipeableViewsIfNeeded:NO];
 }
@@ -124,7 +141,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 - (void)loadNextSwipeableViewsIfNeeded:(BOOL)animated {
     NSInteger numViews = self.containerView.subviews.count;
     NSMutableSet *newViews = [NSMutableSet set];
-    for (NSInteger i = numViews; i < kNumPrefetchedViews; i++) {
+    for (NSInteger i = numViews; i < ZLPrefetchedViewsNumber; i++) {
         UIView *nextView = [self nextSwipeableView];
         if (nextView) {
             [self.containerView addSubview:nextView];
@@ -136,7 +153,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 
     if (animated) {
         NSTimeInterval maxDelay = 0.3;
-        NSTimeInterval delayStep = maxDelay / kNumPrefetchedViews;
+        NSTimeInterval delayStep = maxDelay / ZLPrefetchedViewsNumber;
         NSTimeInterval aggregatedDelay = maxDelay;
         NSTimeInterval animationDuration = 0.25;
         for (UIView *view in newViews) {
@@ -170,7 +187,7 @@ const NSUInteger kNumPrefetchedViews = 3;
     topSwipeableView.userInteractionEnabled = YES;
 
     for (UIGestureRecognizer *recognizer in topSwipeableView
-             .gestureRecognizers) {
+        .gestureRecognizers) {
         if (recognizer.state != UIGestureRecognizerStatePossible) {
             return;
         }
@@ -183,24 +200,24 @@ const NSUInteger kNumPrefetchedViews = 3;
             [self.animator removeBehavior:self.swipeableViewSnapBehavior];
             self.swipeableViewSnapBehavior = [self
                 snapBehaviorThatSnapView:self.containerView
-                                             .subviews[numSwipeableViews - 1]
+                    .subviews[numSwipeableViews - 1]
                                  toPoint:self.swipeableViewsCenter];
             [self.animator addBehavior:self.swipeableViewSnapBehavior];
         }
         CGPoint rotationCenterOffset = {
             0, CGRectGetHeight(topSwipeableView.frame) *
-                   self.rotationRelativeYOffsetFromCenter};
+                self.rotationRelativeYOffsetFromCenter};
         if (numSwipeableViews >= 2) {
             [self rotateView:self.containerView.subviews[numSwipeableViews - 2]
-                         forDegree:self.rotationDegree
-                atOffsetFromCenter:rotationCenterOffset
-                          animated:YES];
+                   forDegree:self.rotationDegree
+          atOffsetFromCenter:rotationCenterOffset
+                    animated:YES];
         }
         if (numSwipeableViews >= 3) {
             [self rotateView:self.containerView.subviews[numSwipeableViews - 3]
-                         forDegree:-self.rotationDegree
-                atOffsetFromCenter:rotationCenterOffset
-                          animated:YES];
+                   forDegree:-self.rotationDegree
+          atOffsetFromCenter:rotationCenterOffset
+                    animated:YES];
         }
     }
 }
@@ -210,94 +227,57 @@ const NSUInteger kNumPrefetchedViews = 3;
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer {
     CGPoint translation = [recognizer translationInView:self];
     CGPoint location = [recognizer locationInView:self];
-
     UIView *swipeableView = recognizer.view;
 
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        [self createAnchorViewForCover:swipeableView
-                               atLocation:location
-            shouldAttachAnchorViewToPoint:YES];
-        if ([self.delegate respondsToSelector:@selector(swipeableView:
-                                                  didStartSwipingView:
-                                                           atLocation:)]) {
-            [self.delegate swipeableView:self
-                     didStartSwipingView:swipeableView
-                              atLocation:location];
+        [self createAnchorViewForCover:swipeableView atLocation:location shouldAttachAnchorViewToPoint:YES];
+
+        if ([self.delegate respondsToSelector:@selector(swipeableView:didStartSwipingView:atLocation:)]) {
+            [self.delegate swipeableView:self didStartSwipingView:swipeableView atLocation:location];
         }
     }
 
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         self.anchorViewAttachmentBehavior.anchorPoint = location;
-        if ([self.delegate respondsToSelector:@selector(swipeableView:
-                                                          swipingView:
-                                                           atLocation:
-                                                          translation:)]) {
-            [self.delegate swipeableView:self
-                             swipingView:swipeableView
-                              atLocation:location
-                             translation:translation];
+        if ([self.delegate respondsToSelector:@selector(swipeableView:swipingView:atLocation:translation:)]) {
+            [self.delegate swipeableView:self swipingView:swipeableView atLocation:location translation:translation];
         }
     }
 
-    if (recognizer.state == UIGestureRecognizerStateEnded ||
-        recognizer.state == UIGestureRecognizerStateCancelled) {
+    if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled) {
         CGPoint velocity = [recognizer velocityInView:self];
-        CGFloat velocityMagnitude =
-            sqrt(pow(velocity.x, 2) + pow(velocity.y, 2));
-        CGPoint normalizedVelocity = CGPointMake(
-            velocity.x / velocityMagnitude, velocity.y / velocityMagnitude);
-        if (((signum(translation.x) == -1 &&
-              self.direction & ZLSwipeableViewDirectionLeft) ||
-             (signum(translation.x) == 1 &&
-              self.direction & ZLSwipeableViewDirectionRight) ||
-             (signum(translation.y) == -1 &&
-              self.direction & ZLSwipeableViewDirectionDown) ||
-             (signum(translation.y) == 1 &&
-              self.direction & ZLSwipeableViewDirectionUp)) &&
-            (ABS(translation.x) > self.relativeDisplacementThreshold *
-                                      self.bounds.size.width // displacement
-             ||
-             velocityMagnitude > self.escapeVelocityThreshold) // velocity
-            &&
-            (signum(translation.x) == signum(normalizedVelocity.x))    // sign X
-            && (signum(translation.y) == signum(normalizedVelocity.y)) // sign Y
-            /*&& ABS(normalizedVelocity.y) < 0.8f*/) // confine vertical
-                                                     // direction
-        {
-            CGFloat scale = velocityMagnitude > self.escapeVelocityThreshold
-                                ? velocityMagnitude
-                                : self.pushVelocityMagnitude;
-            CGFloat translationMagnitude = sqrtf(translation.x * translation.x +
-                                                 translation.y * translation.y);
-            CGVector direction =
-                CGVectorMake(translation.x / translationMagnitude * scale,
-                             translation.y / translationMagnitude * scale);
+        CGFloat velocityMagnitude = sqrtf(powf(velocity.x, 2) + powf(velocity.y, 2));
+        CGPoint normalizedVelocity = CGPointMake(velocity.x / velocityMagnitude, velocity.y / velocityMagnitude);
+        CGFloat scale = velocityMagnitude > self.escapeVelocityThreshold ? velocityMagnitude : self.pushVelocityMagnitude;
+        CGFloat translationMagnitude = sqrtf(translation.x * translation.x + translation.y * translation.y);
+        CGVector directionVector = CGVectorMake(
+            translation.x / translationMagnitude * scale,
+            translation.y / translationMagnitude * scale
+        );
 
-            [self pushAnchorViewForCover:swipeableView
-                             inDirection:direction
-                        andCollideInRect:self.collisionRect];
+        if ((ZLDirectionVectorToSwipeableViewDirection(directionVector) & self.direction) > 0 &&
+            (ABS(translation.x) > self.relativeDisplacementThreshold * self.bounds.size.width || // displacement
+                velocityMagnitude > self.escapeVelocityThreshold) && // velocity
+            (signum(translation.x) == signum(normalizedVelocity.x)) && // sign X
+            (signum(translation.y) == signum(normalizedVelocity.y)) // sign Y
+        ) {
+            [self pushAnchorViewForCover:swipeableView inDirection:directionVector andCollideInRect:self.collisionRect];
         } else {
             [self.animator removeBehavior:self.swipeableViewAttachmentBehavior];
             [self.animator removeBehavior:self.anchorViewAttachmentBehavior];
 
             [self.anchorView removeFromSuperview];
-            self.swipeableViewSnapBehavior =
-                [self snapBehaviorThatSnapView:swipeableView
-                                       toPoint:self.swipeableViewsCenter];
+            self.swipeableViewSnapBehavior = [self snapBehaviorThatSnapView:swipeableView
+                                                                    toPoint:self.swipeableViewsCenter];
             [self.animator addBehavior:self.swipeableViewSnapBehavior];
 
-            if ([self.delegate respondsToSelector:@selector(swipeableView:
-                                                           didCancelSwipe:)]) {
+            if ([self.delegate respondsToSelector:@selector(swipeableView:didCancelSwipe:)]) {
                 [self.delegate swipeableView:self didCancelSwipe:swipeableView];
             }
         }
 
-        if ([self.delegate respondsToSelector:@selector(swipeableView:
-                                                    didEndSwipingView:
-                                                           atLocation:)]) {
-            [self.delegate swipeableView:self
-                       didEndSwipingView:swipeableView
-                              atLocation:location];
+        if ([self.delegate respondsToSelector:@selector(swipeableView:didEndSwipingView:atLocation:)]) {
+            [self.delegate swipeableView:self didEndSwipingView:swipeableView atLocation:location];
         }
     }
 }
@@ -329,8 +309,8 @@ const NSUInteger kNumPrefetchedViews = 3;
         topSwipeableView.center.y *
             (1 + self.programaticSwipeRotationRelativeYOffsetFromCenter));
     [self createAnchorViewForCover:topSwipeableView
-                           atLocation:location
-        shouldAttachAnchorViewToPoint:YES];
+                        atLocation:location
+     shouldAttachAnchorViewToPoint:YES];
     CGVector direction =
         CGVectorMake((left ? -1 : 1) * self.escapeVelocityThreshold, 0);
     [self pushAnchorViewForCover:topSwipeableView
@@ -349,8 +329,8 @@ const NSUInteger kNumPrefetchedViews = 3;
         topSwipeableView.center.y *
             (1 + self.programaticSwipeRotationRelativeYOffsetFromCenter));
     [self createAnchorViewForCover:topSwipeableView
-                           atLocation:location
-        shouldAttachAnchorViewToPoint:YES];
+                        atLocation:location
+     shouldAttachAnchorViewToPoint:YES];
     CGVector direction =
         CGVectorMake(0, (up ? -1 : 1) * self.escapeVelocityThreshold);
     [self pushAnchorViewForCover:topSwipeableView
@@ -366,7 +346,7 @@ const NSUInteger kNumPrefetchedViews = 3;
         return nil;
     }
     UICollisionBehavior *collisionBehavior =
-        [[UICollisionBehavior alloc] initWithItems:@[ view ]];
+        [[UICollisionBehavior alloc] initWithItems:@[view]];
     UIBezierPath *collisionBound = [UIBezierPath bezierPathWithRect:rect];
     [collisionBehavior addBoundaryWithIdentifier:@"c" forPath:collisionBound];
     collisionBehavior.collisionMode = UICollisionBehaviorModeBoundaries;
@@ -379,7 +359,7 @@ const NSUInteger kNumPrefetchedViews = 3;
         return nil;
     }
     UIPushBehavior *pushBehavior =
-        [[UIPushBehavior alloc] initWithItems:@[ view ]
+        [[UIPushBehavior alloc] initWithItems:@[view]
                                          mode:UIPushBehaviorModeInstantaneous];
     pushBehavior.pushDirection = direction;
     return pushBehavior;
@@ -397,18 +377,18 @@ const NSUInteger kNumPrefetchedViews = 3;
 }
 
 - (UIAttachmentBehavior *)attachmentBehaviorThatAnchorsView:
-                              (UIView *)aView toView:(UIView *)anchorView {
+    (UIView *)aView                                  toView:(UIView *)anchorView {
     if (!aView) {
         return nil;
     }
     CGPoint anchorPoint = anchorView.center;
     CGPoint p = [self convertPoint:aView.center toView:self];
     UIAttachmentBehavior *attachment = [[UIAttachmentBehavior alloc]
-            initWithItem:aView
-        offsetFromCenter:UIOffsetMake(-(p.x - anchorPoint.x),
-                                      -(p.y - anchorPoint.y))
-          attachedToItem:anchorView
-        offsetFromCenter:UIOffsetMake(0, 0)];
+        initWithItem:aView
+    offsetFromCenter:UIOffsetMake(-(p.x - anchorPoint.x),
+        -(p.y - anchorPoint.y))
+      attachedToItem:anchorView
+    offsetFromCenter:UIOffsetMake(0, 0)];
     attachment.length = 0;
     return attachment;
 }
@@ -421,23 +401,23 @@ const NSUInteger kNumPrefetchedViews = 3;
 
     CGPoint p = aView.center;
     UIAttachmentBehavior *attachmentBehavior = [[UIAttachmentBehavior alloc]
-            initWithItem:aView
-        offsetFromCenter:UIOffsetMake(-(p.x - aPoint.x), -(p.y - aPoint.y))
-        attachedToAnchor:aPoint];
+        initWithItem:aView
+    offsetFromCenter:UIOffsetMake(-(p.x - aPoint.x), -(p.y - aPoint.y))
+    attachedToAnchor:aPoint];
     attachmentBehavior.damping = 100;
     attachmentBehavior.length = 0;
     return attachmentBehavior;
 }
 
 - (void)createAnchorViewForCover:(UIView *)swipeableView
-                       atLocation:(CGPoint)location
-    shouldAttachAnchorViewToPoint:(BOOL)shouldAttachToPoint {
+                      atLocation:(CGPoint)location
+   shouldAttachAnchorViewToPoint:(BOOL)shouldAttachToPoint {
     [self.animator removeBehavior:self.swipeableViewSnapBehavior];
     self.swipeableViewSnapBehavior = nil;
 
     self.anchorView =
         [[UIView alloc] initWithFrame:CGRectMake(location.x - 500,
-                                                 location.y - 500, 1000, 1000)];
+            location.y - 500, 1000, 1000)];
     [self.anchorView setBackgroundColor:[UIColor blueColor]];
     [self.anchorView setHidden:!self.isAnchorViewVisible];
     [self.anchorContainerView addSubview:self.anchorView];
@@ -459,21 +439,7 @@ const NSUInteger kNumPrefetchedViews = 3;
 - (void)pushAnchorViewForCover:(UIView *)swipeableView
                    inDirection:(CGVector)directionVector
               andCollideInRect:(CGRect)collisionRect {
-    ZLSwipeableViewDirection direction = ZLSwipeableViewDirectionNone;
-
-    if (ABS(directionVector.dx) > ABS(directionVector.dy)) {
-        if (directionVector.dx > 0) {
-            direction = ZLSwipeableViewDirectionRight;
-        } else {
-            direction = ZLSwipeableViewDirectionLeft;
-        }
-    } else {
-        if (directionVector.dy > 0) {
-            direction = ZLSwipeableViewDirectionDown;
-        } else {
-            direction = ZLSwipeableViewDirectionUp;
-        }
-    }
+    ZLSwipeableViewDirection direction = ZLDirectionVectorToSwipeableViewDirection(directionVector);
 
     if ([self.delegate respondsToSelector:@selector(swipeableView:didSwipeView:inDirection:)]) {
         [self.delegate swipeableView:self didSwipeView:swipeableView inDirection:direction];
@@ -481,9 +447,8 @@ const NSUInteger kNumPrefetchedViews = 3;
 
     [self.animator removeBehavior:self.anchorViewAttachmentBehavior];
 
-    UICollisionBehavior *collisionBehavior =
-        [self collisionBehaviorThatBoundsView:self.anchorView
-                                       inRect:collisionRect];
+    UICollisionBehavior *collisionBehavior = [self collisionBehaviorThatBoundsView:self.anchorView
+                                                                            inRect:collisionRect];
     collisionBehavior.collisionDelegate = self;
     [self.animator addBehavior:collisionBehavior];
 
@@ -503,21 +468,21 @@ const NSUInteger kNumPrefetchedViews = 3;
 #pragma mark - UICollisionBehaviorDelegate
 
 - (void)collisionBehavior:(UICollisionBehavior *)behavior
-       endedContactForItem:(id<UIDynamicItem>)item
-    withBoundaryIdentifier:(id<NSCopying>)identifier {
+      endedContactForItem:(id <UIDynamicItem>)item
+   withBoundaryIdentifier:(id <NSCopying>)identifier {
     NSMutableSet *viewsToRemove = [[NSMutableSet alloc] init];
 
     for (id aBehavior in self.animator.behaviors) {
         if ([aBehavior isKindOfClass:[UIAttachmentBehavior class]]) {
-            NSArray *items = ((UIAttachmentBehavior *)aBehavior).items;
+            NSArray *items = ((UIAttachmentBehavior *) aBehavior).items;
             if ([items containsObject:item]) {
                 [self.animator removeBehavior:aBehavior];
                 [viewsToRemove addObjectsFromArray:items];
             }
         }
         if ([aBehavior isKindOfClass:[UIPushBehavior class]]) {
-            NSArray *items = ((UIPushBehavior *)aBehavior).items;
-            if ([((UIPushBehavior *)aBehavior).items containsObject:item]) {
+            NSArray *items = ((UIPushBehavior *) aBehavior).items;
+            if ([((UIPushBehavior *) aBehavior).items containsObject:item]) {
                 if ([items containsObject:item]) {
                     [self.animator removeBehavior:aBehavior];
                     [viewsToRemove addObjectsFromArray:items];
@@ -525,9 +490,9 @@ const NSUInteger kNumPrefetchedViews = 3;
             }
         }
         if ([aBehavior isKindOfClass:[UICollisionBehavior class]]) {
-            NSArray *items = ((UICollisionBehavior *)aBehavior).items;
-            if ([((UICollisionBehavior *)aBehavior).items
-                    containsObject:item]) {
+            NSArray *items = ((UICollisionBehavior *) aBehavior).items;
+            if ([((UICollisionBehavior *) aBehavior).items
+                containsObject:item]) {
                 if ([items containsObject:item]) {
                     [self.animator removeBehavior:aBehavior];
                     [viewsToRemove addObjectsFromArray:items];
@@ -538,9 +503,9 @@ const NSUInteger kNumPrefetchedViews = 3;
 
     for (UIView *view in viewsToRemove) {
         for (UIGestureRecognizer *aGestureRecognizer in view
-                 .gestureRecognizers) {
+            .gestureRecognizers) {
             if ([aGestureRecognizer
-                    isKindOfClass:[ZLPanGestureRecognizer class]]) {
+                isKindOfClass:[ZLPanGestureRecognizer class]]) {
                 [view removeGestureRecognizer:aGestureRecognizer];
             }
         }
@@ -558,17 +523,19 @@ const NSUInteger kNumPrefetchedViews = 3;
     return radians * 180 / M_PI;
 }
 
-int signum(float n) { return (n < 0) ? -1 : (n > 0) ? +1 : 0; }
+int signum(CGFloat n) {
+    return (n < 0) ? -1 : (n > 0) ? +1 : 0;
+}
 
 - (CGRect)defaultCollisionRect {
     CGSize viewSize = [UIScreen mainScreen].applicationFrame.size;
     CGFloat collisionSizeScale = 6;
     CGSize collisionSize = CGSizeMake(viewSize.width * collisionSizeScale,
-                                      viewSize.height * collisionSizeScale);
+        viewSize.height * collisionSizeScale);
     CGRect collisionRect =
         CGRectMake(-collisionSize.width / 2 + viewSize.width / 2,
-                   -collisionSize.height / 2 + viewSize.height / 2,
-                   collisionSize.width, collisionSize.height);
+            -collisionSize.height / 2 + viewSize.height / 2,
+            collisionSize.width, collisionSize.height);
     return collisionRect;
 }
 
@@ -580,16 +547,16 @@ int signum(float n) { return (n < 0) ? -1 : (n > 0) ? +1 : 0; }
     if (nextView) {
         [nextView
             addGestureRecognizer:[[ZLPanGestureRecognizer alloc]
-                                     initWithTarget:self
-                                             action:@selector(handlePan:)]];
+                initWithTarget:self
+                        action:@selector(handlePan:)]];
     }
     return nextView;
 }
 
 - (void)rotateView:(UIView *)view
-             forDegree:(float)degree
-    atOffsetFromCenter:(CGPoint)offset
-              animated:(BOOL)animated {
+         forDegree:(float)degree
+atOffsetFromCenter:(CGPoint)offset
+          animated:(BOOL)animated {
     float duration = animated ? 0.4 : 0;
     float rotationRadian = [self degreesToRadians:degree];
     [UIView animateWithDuration:duration animations:^{
