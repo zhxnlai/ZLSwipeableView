@@ -10,16 +10,16 @@
 
 typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
     ZLSwipeableViewDirectionNone = 0,
-    ZLSwipeableViewDirectionLeft,
+    ZLSwipeableViewDirectionLeft = (1 << 0),
+    ZLSwipeableViewDirectionRight = (1 << 1),
+    ZLSwipeableViewDirectionHorizontal = ZLSwipeableViewDirectionLeft |
     ZLSwipeableViewDirectionRight,
-	ZLSwipeableViewDirectionHorizontal = ZLSwipeableViewDirectionLeft |
-	ZLSwipeableViewDirectionRight,
-	ZLSwipeableViewDirectionUp,
-	ZLSwipeableViewDirectionDown,
-	ZLSwipeableViewDirectionVertical = ZLSwipeableViewDirectionUp |
-	ZLSwipeableViewDirectionDown,
-	ZLSwipeableViewDirectionAll = ZLSwipeableViewDirectionLeft |
-	ZLSwipeableViewDirectionRight | ZLSwipeableViewDirectionUp | ZLSwipeableViewDirectionDown,
+    ZLSwipeableViewDirectionUp = (1 << 2),
+    ZLSwipeableViewDirectionDown = (1 << 3),
+    ZLSwipeableViewDirectionVertical = ZLSwipeableViewDirectionUp |
+    ZLSwipeableViewDirectionDown,
+    ZLSwipeableViewDirectionAll = ZLSwipeableViewDirectionLeft |
+    ZLSwipeableViewDirectionRight | ZLSwipeableViewDirectionUp | ZLSwipeableViewDirectionDown,
 };
 
 @class ZLSwipeableView;
