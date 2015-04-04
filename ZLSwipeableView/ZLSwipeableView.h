@@ -101,6 +101,9 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 /// programatically.
 @property (nonatomic) CGFloat programaticSwipeRotationRelativeYOffsetFromCenter;
 
+/// The currently displayed top most view.
+@property (nonatomic, readonly) UIView *topSwipeableView;
+
 /// Discard all swipeable views on the screen.
 - (void)discardAllSwipeableViews;
 
@@ -118,4 +121,5 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 
 /// Swipe top view to the down programmatically
 - (void)swipeTopViewToDown;
+
 @end
