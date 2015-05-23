@@ -13,13 +13,13 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
     ZLSwipeableViewDirectionLeft = (1 << 0),
     ZLSwipeableViewDirectionRight = (1 << 1),
     ZLSwipeableViewDirectionHorizontal = ZLSwipeableViewDirectionLeft |
-    ZLSwipeableViewDirectionRight,
+                                         ZLSwipeableViewDirectionRight,
     ZLSwipeableViewDirectionUp = (1 << 2),
     ZLSwipeableViewDirectionDown = (1 << 3),
     ZLSwipeableViewDirectionVertical = ZLSwipeableViewDirectionUp |
-    ZLSwipeableViewDirectionDown,
-    ZLSwipeableViewDirectionAll = ZLSwipeableViewDirectionLeft |
-    ZLSwipeableViewDirectionRight | ZLSwipeableViewDirectionUp | ZLSwipeableViewDirectionDown,
+                                       ZLSwipeableViewDirectionDown,
+    ZLSwipeableViewDirectionAll = ZLSwipeableViewDirectionHorizontal |
+                                  ZLSwipeableViewDirectionVertical,
 };
 
 @class ZLSwipeableView;
@@ -59,10 +59,7 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 
 @interface ZLSwipeableView : UIView
 
-///
 @property (nonatomic, weak) IBOutlet id<ZLSwipeableViewDataSource> dataSource;
-
-///
 @property (nonatomic, weak) IBOutlet id<ZLSwipeableViewDelegate> delegate;
 
 /// Enable this to rotate the views behind the top view. Default to `YES`.
