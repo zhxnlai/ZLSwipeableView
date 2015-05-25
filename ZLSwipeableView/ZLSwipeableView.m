@@ -323,7 +323,7 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
         directionVector = CGVectorMake(-self.pushVelocityMagnitude, 0);
         break;
     case ZLSwipeableViewDirectionRight:
-        directionVector = CGVectorMake(-self.pushVelocityMagnitude, 0);
+        directionVector = CGVectorMake(self.pushVelocityMagnitude, 0);
         break;
     case ZLSwipeableViewDirectionUp:
         directionVector = CGVectorMake(0, -self.pushVelocityMagnitude);
