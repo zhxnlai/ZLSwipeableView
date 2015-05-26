@@ -5,7 +5,8 @@ ZLSwipeableView
 
 A simple view for building card like interface like [Tinder](http://www.gotinder.com/) and [Potluck](https://www.potluck.it/). ZLSwipeableView was originally developed for [Murmur](http://zhxnlai.github.io/#/murmur).
 
-**Notice:** The Objective-C version of ZLSwipeableView is no longer actively maintained. Please checkout the swift version: https://github.com/zhxnlai/ZLSwipeableViewSwift
+**Notice:** The Objective-C version of ZLSwipeableView is no longer actively maintained. 
+### Please checkout the swift version: https://github.com/zhxnlai/ZLSwipeableViewSwift
 
 Preview
 ---
