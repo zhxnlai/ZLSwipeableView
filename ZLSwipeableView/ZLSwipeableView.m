@@ -92,13 +92,9 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
     self.direction = ZLSwipeableViewDirectionAll;
     self.pushVelocityMagnitude = 1000;
     self.escapeVelocityThreshold = 750;
-    self.relativeDisplacementThreshold = 0.25;
+    self.relativeTranslationThreshold = 0.25;
 
     self.programaticSwipeRotationRelativeYOffsetFromCenter = -0.2;
-    self.swipeableViewsCenter =
-        CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-    self.swipeableViewsCenterInitial =
-        CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     self.collisionRect = [self defaultCollisionRect];
 }
 
@@ -108,18 +104,6 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
     self.anchorContainerView.frame = CGRectMake(0, 0, 1, 1);
     self.containerView.frame = self.bounds;
     self.reuseCoverContainerView.frame = self.bounds;
-    self.swipeableViewsCenterInitial = CGPointMake(
-        self.bounds.size.width / 2 + self.swipeableViewsCenterInitial.x -
-            self.swipeableViewsCenter.x,
-        self.bounds.size.height / 2 + self.swipeableViewsCenterInitial.y -
-            self.swipeableViewsCenter.y);
-    self.swipeableViewsCenter =
-        CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-}
-
-- (void)setSwipeableViewsCenter:(CGPoint)swipeableViewsCenter {
-    _swipeableViewsCenter = swipeableViewsCenter;
-    [self animateSwipeableViewsIfNeeded];
 }
 
 #pragma mark - Properties
@@ -146,7 +130,8 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
         if (nextView) {
             [self.containerView addSubview:nextView];
             [self.containerView sendSubviewToBack:nextView];
-            nextView.center = self.swipeableViewsCenterInitial;
+            nextView.center =
+                [self convertPoint:self.center fromView:self.superview];
             [newViews addObject:nextView];
         }
     }
@@ -180,7 +165,8 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
             self.swipeableViewSnapBehavior = [self
                 snapBehaviorThatSnapView:self.containerView
                                              .subviews[numSwipeableViews - 1]
-                                 toPoint:self.swipeableViewsCenter];
+                                 toPoint:[self convertPoint:self.center
+                                                   fromView:self.superview]];
             [self.animator addBehavior:self.swipeableViewSnapBehavior];
         }
         CGPoint rotationCenterOffset = {
@@ -253,7 +239,7 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
 
         if ((ZLDirectionVectorToSwipeableViewDirection(directionVector) &
              self.direction) > 0 &&
-            (ABS(translation.x) > self.relativeDisplacementThreshold *
+            (ABS(translation.x) > self.relativeTranslationThreshold *
                                       self.bounds.size.width || // displacement
              velocityMagnitude > self.escapeVelocityThreshold) && // velocity
             (signum(translation.x) == signum(normalizedVelocity.x)) && // sign X
@@ -267,9 +253,10 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
             [self.animator removeBehavior:self.anchorViewAttachmentBehavior];
 
             [self.anchorView removeFromSuperview];
-            self.swipeableViewSnapBehavior =
-                [self snapBehaviorThatSnapView:swipeableView
-                                       toPoint:self.swipeableViewsCenter];
+            self.swipeableViewSnapBehavior = [self
+                snapBehaviorThatSnapView:swipeableView
+                                 toPoint:[self convertPoint:self.center
+                                                   fromView:self.superview]];
             [self.animator addBehavior:self.swipeableViewSnapBehavior];
 
             if ([self.delegate respondsToSelector:@selector(swipeableView:
@@ -568,8 +555,11 @@ int signum(CGFloat n) { return (n < 0) ? -1 : (n > 0) ? +1 : 0; }
     float duration = animated ? 0.4 : 0;
     float rotationRadian = [self degreesToRadians:degree];
     [UIView animateWithDuration:duration
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                       view.center = self.swipeableViewsCenter;
+                       view.center = [self convertPoint:self.center
+                                               fromView:self.superview];
                        CGAffineTransform transform =
                            CGAffineTransformMakeTranslation(offset.x, offset.y);
                        transform =
@@ -577,7 +567,8 @@ int signum(CGFloat n) { return (n < 0) ? -1 : (n > 0) ? +1 : 0; }
                        transform = CGAffineTransformTranslate(
                            transform, -offset.x, -offset.y);
                        view.transform = transform;
-                     }];
+                     }
+                     completion:nil];
 }
 
 - (UIView *)topSwipeableView {

@@ -80,16 +80,10 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 @property (nonatomic) CGFloat escapeVelocityThreshold;
 
 /// The relative distance from center that will
-@property (nonatomic) CGFloat relativeDisplacementThreshold;
+@property (nonatomic) CGFloat relativeTranslationThreshold;
 
 /// Magnitude of velocity at which the swiped view will be animated.
 @property (nonatomic) CGFloat pushVelocityMagnitude;
-
-/// Center of swipable Views. This property is animated.
-@property (nonatomic) CGPoint swipeableViewsCenter;
-
-/// Center of swipable Views. This property is animated.
-@property (nonatomic) CGPoint swipeableViewsCenterInitial;
 
 /// Swiped views will be destroyed when they collide with this rect.
 @property (nonatomic) CGRect collisionRect;
