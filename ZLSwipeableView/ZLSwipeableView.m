@@ -140,7 +140,7 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
 }
 
 - (void)animateSwipeableViewsIfNeeded {
-    UIView *topSwipeableView = [self topSwipeableView];
+    UIView *topSwipeableView = self.topSwipeableView;
     if (!topSwipeableView) {
         return;
     }
@@ -292,7 +292,7 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
 }
 
 - (void)swipeTopViewToDirection:(ZLSwipeableViewDirection)direction {
-    UIView *topSwipeableView = [self topSwipeableView];
+    UIView *topSwipeableView = self.topSwipeableView;
     if (!topSwipeableView) {
         return;
     }
@@ -407,8 +407,8 @@ ZLDirectionVectorToSwipeableViewDirection(CGVector directionVector) {
     self.anchorView =
         [[UIView alloc] initWithFrame:CGRectMake(location.x - 500,
                                                  location.y - 500, 1000, 1000)];
-    [self.anchorView setBackgroundColor:[UIColor blueColor]];
-    [self.anchorView setHidden:!self.isAnchorViewVisible];
+    (self.anchorView).backgroundColor = [UIColor blueColor];
+    (self.anchorView).hidden = !self.isAnchorViewVisible;
     [self.anchorContainerView addSubview:self.anchorView];
     UIAttachmentBehavior *attachToView =
         [self attachmentBehaviorThatAnchorsView:swipeableView

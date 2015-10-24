@@ -140,9 +140,9 @@
 
         if (self.loadCardFromXib) {
             UIView *contentView =
-                [[[NSBundle mainBundle] loadNibNamed:@"CardContentView"
+                [[NSBundle mainBundle] loadNibNamed:@"CardContentView"
                                                owner:self
-                                             options:nil] objectAtIndex:0];
+                                             options:nil][0];
             contentView.translatesAutoresizingMaskIntoConstraints = NO;
             [view addSubview:contentView];
 
