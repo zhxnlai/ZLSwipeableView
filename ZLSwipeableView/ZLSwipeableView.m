@@ -84,11 +84,6 @@
 
 #pragma mark - Properties
 
-- (void)setDataSource:(id<ZLSwipeableViewDataSource>)dataSource {
-    _dataSource = dataSource;
-    [self loadViewsIfNeeded];
-}
-
 - (NSArray<UIView *> *)history {
     return [_mutableHistory mutableCopy];
 }
@@ -123,9 +118,12 @@
 }
 
 - (void)rewind {
-    UIView *viewToBeRewinded = _mutableHistory.lastObject;
-    ;
-    if (!viewToBeRewinded) {
+    UIView *viewToBeRewinded;
+
+    if (_mutableHistory.lastObject) {
+        viewToBeRewinded = _mutableHistory.lastObject;
+        [_mutableHistory removeLastObject];
+    } else {
         viewToBeRewinded = [self previousView];
     }
 
@@ -197,7 +195,7 @@
     return [[[[self allViews]
         filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(UIView *view,
                                                                           NSDictionary *bindings) {
-          return [activeViews containsObject:view];
+          return ![activeViews containsObject:view];
         }]] reverseObjectEnumerator] allObjects];
 }
 

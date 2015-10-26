@@ -79,50 +79,5 @@ atOffsetFromCenter:(CGPoint)offset
         break;
     }
 }
-/*
- - (void)animateSwipeableViewsIfNeeded {
- UIView *topSwipeableView = self.topSwipeableView;
- if (!topSwipeableView) {
- return;
- }
 
- for (UIView *cover in self.containerView.subviews) {
- cover.userInteractionEnabled = NO;
- }
- topSwipeableView.userInteractionEnabled = YES;
-
- for (UIGestureRecognizer *recognizer in topSwipeableView.gestureRecognizers) {
- if (recognizer.state != UIGestureRecognizerStatePossible) {
- return;
- }
- }
-
- if (self.isRotationEnabled) {
- // rotation
- NSUInteger numSwipeableViews = self.containerView.subviews.count;
- if (numSwipeableViews >= 1) {
- [self.animator removeBehavior:self.swipeableViewSnapBehavior];
- self.swipeableViewSnapBehavior = [self
- snapBehaviorThatSnapView:self.containerView.subviews[numSwipeableViews - 1]
- toPoint:[self convertPoint:self.center fromView:self.superview]];
- [self.animator addBehavior:self.swipeableViewSnapBehavior];
- }
- CGPoint rotationCenterOffset = {0, CGRectGetHeight(topSwipeableView.frame) *
- self.rotationRelativeYOffsetFromCenter};
- if (numSwipeableViews >= 2) {
- [self rotateView:self.containerView.subviews[numSwipeableViews - 2]
- forDegree:self.rotationDegree
- atOffsetFromCenter:rotationCenterOffset
- animated:YES];
- }
- if (numSwipeableViews >= 3) {
- [self rotateView:self.containerView.subviews[numSwipeableViews - 3]
- forDegree:-self.rotationDegree
- atOffsetFromCenter:rotationCenterOffset
- animated:YES];
- }
- }
- }
-
- */
 @end

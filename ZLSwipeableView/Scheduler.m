@@ -32,7 +32,6 @@
         self.timer = nil;
         return;
     }
-
     self.action();
 }
 
