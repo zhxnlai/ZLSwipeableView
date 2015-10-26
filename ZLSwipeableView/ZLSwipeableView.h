@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZLSwipeableViewMovement.h"
+#import "ZLSwipeableViewSwipeOptions.h"
 
 typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
     ZLSwipeableViewDirectionNone = 0,
@@ -16,13 +18,42 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
                                          ZLSwipeableViewDirectionRight,
     ZLSwipeableViewDirectionUp = (1 << 2),
     ZLSwipeableViewDirectionDown = (1 << 3),
-    ZLSwipeableViewDirectionVertical = ZLSwipeableViewDirectionUp |
-                                       ZLSwipeableViewDirectionDown,
+    ZLSwipeableViewDirectionVertical = ZLSwipeableViewDirectionUp | ZLSwipeableViewDirectionDown,
     ZLSwipeableViewDirectionAll = ZLSwipeableViewDirectionHorizontal |
                                   ZLSwipeableViewDirectionVertical,
 };
 
 @class ZLSwipeableView;
+
+@protocol ZLSwipeableViewAnimator <NSObject>
+
+@required
+- (void)animateView:(UIView *)view
+              index:(NSUInteger)index
+              views:(NSArray<UIView *> *)views
+      swipeableView:(ZLSwipeableView *)swipeableView;
+
+@end
+
+@protocol ZLSwipeableViewDirectionInterpretor <NSObject>
+
+@required
+- (ZLSwipeableViewSwipeOptions *)interpretDirection:(ZLSwipeableViewDirection)direction
+                                               view:(UIView *)view
+                                              index:(NSUInteger)index
+                                              views:(NSArray<UIView *> *)views
+                                      swipeableView:(ZLSwipeableView *)swipeableView;
+
+@end
+
+@protocol ZLSwipeableViewSwipingDeterminator <NSObject>
+
+@required
+- (BOOL)shouldSwipeView:(UIView *)view
+               movement:(ZLSwipeableViewMovement *)movement
+          swipeableView:(ZLSwipeableView *)swipeableView;
+
+@end
 
 /// Delegate
 @protocol ZLSwipeableViewDelegate <NSObject>
@@ -31,12 +62,11 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
          didSwipeView:(UIView *)view
           inDirection:(ZLSwipeableViewDirection)direction;
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-       didCancelSwipe:(UIView *)view;
+- (void)swipeableView:(ZLSwipeableView *)swipeableView didCancelSwipe:(UIView *)view;
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
-    didStartSwipingView:(UIView *)view
-             atLocation:(CGPoint)location;
+  didStartSwipingView:(UIView *)view
+           atLocation:(CGPoint)location;
 
 - (void)swipeableView:(ZLSwipeableView *)swipeableView
           swipingView:(UIView *)view
@@ -55,68 +85,53 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 @required
 - (UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView;
 
+@optional
+- (UIView *)previousViewForSwipeableView:(ZLSwipeableView *)swipeableView;
+
 @end
 
 @interface ZLSwipeableView : UIView
 
+// data source
 @property (nonatomic, weak) IBOutlet id<ZLSwipeableViewDataSource> dataSource;
+
+@property (nonatomic) NSUInteger numberOfActiveViews;
+
+// delegate
 @property (nonatomic, weak) IBOutlet id<ZLSwipeableViewDelegate> delegate;
 
-/// Enable this to rotate the views behind the top view. Default to `YES`.
-@property (nonatomic) BOOL isRotationEnabled;
+// history
+@property (nonatomic, readonly) NSArray<UIView *> *history;
+@property (nonatomic) NSUInteger numberOfHistoryItem;
 
-/// Magnitude of the rotation in degrees
-@property (nonatomic) float rotationDegree;
+// Customization
+@property (nonatomic, strong) id<ZLSwipeableViewAnimator> viewAnimator;
+@property (nonatomic, strong) id<ZLSwipeableViewDirectionInterpretor> directionInterpretor;
+@property (nonatomic, strong) id<ZLSwipeableViewSwipingDeterminator> swipingDeterminator;
+@property (nonatomic) CGFloat minTranslationInPercent;
+@property (nonatomic) CGFloat minVelocityInPointPerSecond;
+@property (nonatomic) ZLSwipeableViewDirection allowedDirection;
 
-/// Relative vertical offset of the center of rotation. From 0 to 1. Default to
-/// 0.3.
-@property (nonatomic) float rotationRelativeYOffsetFromCenter;
+- (UIView *)topView;
 
-/// Enable this to allow swiping left and right. Default to
-/// `ZLSwipeableViewDirectionBoth`.
-@property (nonatomic) ZLSwipeableViewDirection direction;
+- (NSArray<UIView *> *)activeViews;
 
-/// Magnitude in points per second.
-@property (nonatomic) CGFloat escapeVelocityThreshold;
+- (void)loadViewsIfNeeded;
 
-/// The relative distance from center that will
-@property (nonatomic) CGFloat relativeDisplacementThreshold;
+- (void)rewind;
 
-/// Magnitude of velocity at which the swiped view will be animated.
-@property (nonatomic) CGFloat pushVelocityMagnitude;
+- (void)discardAllViews;
 
-/// Center of swipable Views. This property is animated.
-@property (nonatomic) CGPoint swipeableViewsCenter;
-
-/// Center of swipable Views. This property is animated.
-@property (nonatomic) CGPoint swipeableViewsCenterInitial;
-
-/// Swiped views will be destroyed when they collide with this rect.
-@property (nonatomic) CGRect collisionRect;
-
-/// Relative vertical offset of the center of rotation for swiping views
-/// programatically.
-@property (nonatomic) CGFloat programaticSwipeRotationRelativeYOffsetFromCenter;
-
-/// The currently displayed top most view.
-@property (nonatomic, readonly) UIView *topSwipeableView;
-
-/// Discard all swipeable views on the screen.
-- (void)discardAllSwipeableViews;
-
-/// Load up to 3 swipeable views.
-- (void)loadNextSwipeableViewsIfNeeded;
-
-/// Swipe top view to the left programmatically
 - (void)swipeTopViewToLeft;
 
-/// Swipe top view to the right programmatically
 - (void)swipeTopViewToRight;
 
-/// Swipe top view to the up programmatically
 - (void)swipeTopViewToUp;
 
-/// Swipe top view to the down programmatically
 - (void)swipeTopViewToDown;
+
+- (void)swipeTopViewInDirection:(ZLSwipeableViewDirection)direction;
+
+- (void)swipeTopViewFromPoint:(CGPoint)point inDirection:(CGVector)directionVector;
 
 @end
