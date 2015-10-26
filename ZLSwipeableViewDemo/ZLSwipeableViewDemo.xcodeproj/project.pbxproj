@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0901414B1A37FF7900435455 /* ZLPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0901414A1A37FF7900435455 /* ZLPanGestureRecognizer.m */; };
+		0901414B1A37FF7900435455 /* PanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0901414A1A37FF7900435455 /* PanGestureRecognizer.m */; };
 		0923646B1A59D90F009BC8B4 /* CardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0923646A1A59D90F009BC8B4 /* CardContentView.xib */; };
 		092F0F341A05B474007CDDCC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F331A05B474007CDDCC /* main.m */; };
 		092F0F371A05B474007CDDCC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F361A05B474007CDDCC /* AppDelegate.m */; };
@@ -19,6 +19,14 @@
 		092F0F661A05C9CA007CDDCC /* UIColor+FlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F651A05C9CA007CDDCC /* UIColor+FlatColors.m */; };
 		092F0F691A05DAF9007CDDCC /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 092F0F681A05DAF8007CDDCC /* CardView.m */; };
 		0971D4611A08425E00325B8D /* ZLSwipeableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0971D45F1A08425E00325B8D /* ZLSwipeableView.m */; };
+		099CF6441BDD35B000D05FAA /* ViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 099CF6431BDD35B000D05FAA /* ViewManager.m */; settings = {ASSET_TAGS = (); }; };
+		09A35C1F1BDDDA4900F39193 /* Scheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A35C1E1BDDDA4900F39193 /* Scheduler.m */; settings = {ASSET_TAGS = (); }; };
+		09A35C251BDDDDF800F39193 /* ZLSwipeableViewMovement.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A35C241BDDDDF800F39193 /* ZLSwipeableViewMovement.m */; settings = {ASSET_TAGS = (); }; };
+		09A35C281BDDE6B300F39193 /* DefaultViewAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A35C271BDDE6B300F39193 /* DefaultViewAnimator.m */; settings = {ASSET_TAGS = (); }; };
+		09A35C2B1BDDE70D00F39193 /* DefaultDirectionInterpretor.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A35C2A1BDDE70D00F39193 /* DefaultDirectionInterpretor.m */; settings = {ASSET_TAGS = (); }; };
+		09A35C2E1BDDE71F00F39193 /* DefaultShouldSwipeDeterminator.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A35C2D1BDDE71F00F39193 /* DefaultShouldSwipeDeterminator.m */; settings = {ASSET_TAGS = (); }; };
+		09A35C311BDDE74500F39193 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A35C301BDDE74500F39193 /* Utils.m */; settings = {ASSET_TAGS = (); }; };
+		09C2FF811BDE953F00339692 /* ZLSwipeableViewSwipeOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C2FF801BDE953F00339692 /* ZLSwipeableViewSwipeOptions.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,8 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		090141491A37FF7900435455 /* ZLPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPanGestureRecognizer.h; sourceTree = "<group>"; };
-		0901414A1A37FF7900435455 /* ZLPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPanGestureRecognizer.m; sourceTree = "<group>"; };
+		090141491A37FF7900435455 /* PanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanGestureRecognizer.h; sourceTree = "<group>"; };
+		0901414A1A37FF7900435455 /* PanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanGestureRecognizer.m; sourceTree = "<group>"; };
 		0923646A1A59D90F009BC8B4 /* CardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardContentView.xib; sourceTree = "<group>"; };
 		092F0F2E1A05B474007CDDCC /* ZLSwipeableViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZLSwipeableViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		092F0F321A05B474007CDDCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +62,22 @@
 		092F0F681A05DAF8007CDDCC /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
 		0971D45E1A08425E00325B8D /* ZLSwipeableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLSwipeableView.h; sourceTree = "<group>"; };
 		0971D45F1A08425E00325B8D /* ZLSwipeableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLSwipeableView.m; sourceTree = "<group>"; };
+		099CF6421BDD35B000D05FAA /* ViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewManager.h; sourceTree = "<group>"; };
+		099CF6431BDD35B000D05FAA /* ViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewManager.m; sourceTree = "<group>"; };
+		09A35C1D1BDDDA4900F39193 /* Scheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
+		09A35C1E1BDDDA4900F39193 /* Scheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scheduler.m; sourceTree = "<group>"; };
+		09A35C231BDDDDF800F39193 /* ZLSwipeableViewMovement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLSwipeableViewMovement.h; sourceTree = "<group>"; };
+		09A35C241BDDDDF800F39193 /* ZLSwipeableViewMovement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLSwipeableViewMovement.m; sourceTree = "<group>"; };
+		09A35C261BDDE6B300F39193 /* DefaultViewAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultViewAnimator.h; sourceTree = "<group>"; };
+		09A35C271BDDE6B300F39193 /* DefaultViewAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultViewAnimator.m; sourceTree = "<group>"; };
+		09A35C291BDDE70D00F39193 /* DefaultDirectionInterpretor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultDirectionInterpretor.h; sourceTree = "<group>"; };
+		09A35C2A1BDDE70D00F39193 /* DefaultDirectionInterpretor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultDirectionInterpretor.m; sourceTree = "<group>"; };
+		09A35C2C1BDDE71F00F39193 /* DefaultShouldSwipeDeterminator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultShouldSwipeDeterminator.h; sourceTree = "<group>"; };
+		09A35C2D1BDDE71F00F39193 /* DefaultShouldSwipeDeterminator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultShouldSwipeDeterminator.m; sourceTree = "<group>"; };
+		09A35C2F1BDDE74500F39193 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		09A35C301BDDE74500F39193 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		09C2FF7F1BDE953F00339692 /* ZLSwipeableViewSwipeOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLSwipeableViewSwipeOptions.h; sourceTree = "<group>"; };
+		09C2FF801BDE953F00339692 /* ZLSwipeableViewSwipeOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLSwipeableViewSwipeOptions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,13 +174,37 @@
 		0971D45B1A08425E00325B8D /* ZLSwipeableView */ = {
 			isa = PBXGroup;
 			children = (
-				090141491A37FF7900435455 /* ZLPanGestureRecognizer.h */,
-				0901414A1A37FF7900435455 /* ZLPanGestureRecognizer.m */,
 				0971D45E1A08425E00325B8D /* ZLSwipeableView.h */,
 				0971D45F1A08425E00325B8D /* ZLSwipeableView.m */,
+				09C2FF7F1BDE953F00339692 /* ZLSwipeableViewSwipeOptions.h */,
+				09C2FF801BDE953F00339692 /* ZLSwipeableViewSwipeOptions.m */,
+				09A35C231BDDDDF800F39193 /* ZLSwipeableViewMovement.h */,
+				09A35C241BDDDDF800F39193 /* ZLSwipeableViewMovement.m */,
+				09A35C1C1BDDDA3100F39193 /* Internal */,
 			);
 			name = ZLSwipeableView;
 			path = ../../ZLSwipeableView;
+			sourceTree = "<group>";
+		};
+		09A35C1C1BDDDA3100F39193 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				099CF6421BDD35B000D05FAA /* ViewManager.h */,
+				099CF6431BDD35B000D05FAA /* ViewManager.m */,
+				09A35C261BDDE6B300F39193 /* DefaultViewAnimator.h */,
+				09A35C271BDDE6B300F39193 /* DefaultViewAnimator.m */,
+				09A35C291BDDE70D00F39193 /* DefaultDirectionInterpretor.h */,
+				09A35C2A1BDDE70D00F39193 /* DefaultDirectionInterpretor.m */,
+				09A35C2C1BDDE71F00F39193 /* DefaultShouldSwipeDeterminator.h */,
+				09A35C2D1BDDE71F00F39193 /* DefaultShouldSwipeDeterminator.m */,
+				09A35C1D1BDDDA4900F39193 /* Scheduler.h */,
+				09A35C1E1BDDDA4900F39193 /* Scheduler.m */,
+				090141491A37FF7900435455 /* PanGestureRecognizer.h */,
+				0901414A1A37FF7900435455 /* PanGestureRecognizer.m */,
+				09A35C2F1BDDE74500F39193 /* Utils.h */,
+				09A35C301BDDE74500F39193 /* Utils.m */,
+			);
+			name = Internal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,12 +308,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09A35C251BDDDDF800F39193 /* ZLSwipeableViewMovement.m in Sources */,
 				092F0F3A1A05B474007CDDCC /* ViewController.m in Sources */,
+				09A35C281BDDE6B300F39193 /* DefaultViewAnimator.m in Sources */,
 				092F0F661A05C9CA007CDDCC /* UIColor+FlatColors.m in Sources */,
+				09C2FF811BDE953F00339692 /* ZLSwipeableViewSwipeOptions.m in Sources */,
+				09A35C2B1BDDE70D00F39193 /* DefaultDirectionInterpretor.m in Sources */,
+				09A35C311BDDE74500F39193 /* Utils.m in Sources */,
 				092F0F371A05B474007CDDCC /* AppDelegate.m in Sources */,
-				0901414B1A37FF7900435455 /* ZLPanGestureRecognizer.m in Sources */,
+				0901414B1A37FF7900435455 /* PanGestureRecognizer.m in Sources */,
+				09A35C2E1BDDE71F00F39193 /* DefaultShouldSwipeDeterminator.m in Sources */,
+				09A35C1F1BDDDA4900F39193 /* Scheduler.m in Sources */,
 				092F0F341A05B474007CDDCC /* main.m in Sources */,
 				092F0F691A05DAF9007CDDCC /* CardView.m in Sources */,
+				099CF6441BDD35B000D05FAA /* ViewManager.m in Sources */,
 				0971D4611A08425E00325B8D /* ZLSwipeableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -93,42 +93,42 @@
 
     self.colorIndex = 0;
 
-    [self.swipeableView discardAllSwipeableViews];
-    [self.swipeableView loadNextSwipeableViewsIfNeeded];
+    [self.swipeableView discardAllViews];
+    [self.swipeableView loadViewsIfNeeded];
 }
 
 #pragma mark - ZLSwipeableViewDelegate
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-         didSwipeView:(UIView *)view
-          inDirection:(ZLSwipeableViewDirection)direction {
-    NSLog(@"did swipe in direction: %zd", direction);
-}
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-       didCancelSwipe:(UIView *)view {
-    NSLog(@"did cancel swipe");
-}
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-    didStartSwipingView:(UIView *)view
-             atLocation:(CGPoint)location {
-    NSLog(@"did start swiping at location: x %f, y %f", location.x, location.y);
-}
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-          swipingView:(UIView *)view
-           atLocation:(CGPoint)location
-          translation:(CGPoint)translation {
-    NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f",
-          location.x, location.y, translation.x, translation.y);
-}
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-    didEndSwipingView:(UIView *)view
-           atLocation:(CGPoint)location {
-    NSLog(@"did end swiping at location: x %f, y %f", location.x, location.y);
-}
+//- (void)swipeableView:(ZLSwipeableView *)swipeableView
+//         didSwipeView:(UIView *)view
+//          inDirection:(ZLSwipeableViewDirection)direction {
+//    NSLog(@"did swipe in direction: %zd", direction);
+//}
+//
+//- (void)swipeableView:(ZLSwipeableView *)swipeableView
+//       didCancelSwipe:(UIView *)view {
+//    NSLog(@"did cancel swipe");
+//}
+//
+//- (void)swipeableView:(ZLSwipeableView *)swipeableView
+//    didStartSwipingView:(UIView *)view
+//             atLocation:(CGPoint)location {
+//    NSLog(@"did start swiping at location: x %f, y %f", location.x, location.y);
+//}
+//
+//- (void)swipeableView:(ZLSwipeableView *)swipeableView
+//          swipingView:(UIView *)view
+//           atLocation:(CGPoint)location
+//          translation:(CGPoint)translation {
+//    NSLog(@"swiping at location: x %f, y %f, translation: x %f, y %f",
+//          location.x, location.y, translation.x, translation.y);
+//}
+//
+//- (void)swipeableView:(ZLSwipeableView *)swipeableView
+//    didEndSwipingView:(UIView *)view
+//           atLocation:(CGPoint)location {
+//    NSLog(@"did end swiping at location: x %f, y %f", location.x, location.y);
+//}
 
 #pragma mark - ZLSwipeableViewDataSource
 
@@ -166,14 +166,14 @@
                                                          metrics:metrics
                                                            views:views]];
         } else {
-            UITextView *textView =
-                [[UITextView alloc] initWithFrame:view.bounds];
-            textView.text = @"This UITextView was created programmatically.";
-            textView.backgroundColor = [UIColor clearColor];
-            textView.font = [UIFont systemFontOfSize:24];
-            textView.editable = NO;
-            textView.selectable = NO;
-            [view addSubview:textView];
+//            UITextView *textView =
+//                [[UITextView alloc] initWithFrame:view.bounds];
+//            textView.text = @"This UITextView was created programmatically.";
+//            textView.backgroundColor = [UIColor clearColor];
+//            textView.font = [UIFont systemFontOfSize:24];
+//            textView.editable = NO;
+//            textView.selectable = NO;
+//            [view addSubview:textView];
         }
 
         return view;
