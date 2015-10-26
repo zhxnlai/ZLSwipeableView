@@ -2,3 +2,4 @@
 BasedOnStyle:  LLVM
 IndentWidth: 4
 ObjCSpaceAfterProperty: true
+ColumnLimit: 100
