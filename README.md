@@ -81,8 +81,8 @@ To swipe the top view programmatically:
 
 To discard all views and reload programmatically:
 ~~~objective-c
-[self.swipeableView discardAllSwipeableViews];
-[self.swipeableView loadNextSwipeableViewsIfNeeded];
+[self.swipeableView discardAllViews];
+[self.swipeableView loadViewsIfNeeded];
 ~~~
 
 Requirements
