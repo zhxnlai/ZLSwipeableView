@@ -30,6 +30,8 @@
     if (!self.action || !self.endCondition || self.endCondition()) {
         [self.timer invalidate];
         self.timer = nil;
+        self.endCondition = nil;
+        self.action = nil;
         return;
     }
     self.action();
