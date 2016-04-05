@@ -105,9 +105,9 @@ typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
 @property (nonatomic) NSUInteger numberOfHistoryItem;
 
 // Customization
-@property (nonatomic, strong) id<ZLSwipeableViewAnimator> viewAnimator;
-@property (nonatomic, strong) id<ZLSwipeableViewDirectionInterpretor> directionInterpretor;
-@property (nonatomic, strong) id<ZLSwipeableViewSwipingDeterminator> swipingDeterminator;
+@property (nonatomic, weak) id<ZLSwipeableViewAnimator> viewAnimator;
+@property (nonatomic, weak) id<ZLSwipeableViewDirectionInterpretor> directionInterpretor;
+@property (nonatomic, weak) id<ZLSwipeableViewSwipingDeterminator> swipingDeterminator;
 @property (nonatomic) CGFloat minTranslationInPercent;
 @property (nonatomic) CGFloat minVelocityInPointPerSecond;
 @property (nonatomic) ZLSwipeableViewDirection allowedDirection;
