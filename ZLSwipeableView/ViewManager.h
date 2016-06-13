@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, ViewManagerState) {
+typedef NS_OPTIONS(NSUInteger, ViewManagerState) {
     ViewManagerStateSnapping = 0,
     ViewManagerStateMoving = (1 << 0),
     ViewManagerStateSwiping = (1 << 1),
