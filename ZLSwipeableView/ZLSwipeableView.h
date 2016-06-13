@@ -10,7 +10,7 @@
 #import "ZLSwipeableViewMovement.h"
 #import "ZLSwipeableViewSwipeOptions.h"
 
-typedef NS_ENUM(NSUInteger, ZLSwipeableViewDirection) {
+typedef NS_OPTIONS(NSUInteger, ZLSwipeableViewDirection) {
     ZLSwipeableViewDirectionNone = 0,
     ZLSwipeableViewDirectionLeft = (1 << 0),
     ZLSwipeableViewDirectionRight = (1 << 1),
